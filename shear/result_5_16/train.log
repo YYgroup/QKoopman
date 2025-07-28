@@ -1,0 +1,793 @@
+[2025-06-02 08:53:56] [INFO] ========== arg1 ==========
+[2025-06-02 08:53:56] [INFO] {
+    "local_rank": 0,
+    "deepspeed": true,
+    "deepspeed_config": "ds_config.json",
+    "deepscale": false,
+    "deepscale_config": null
+}
+[2025-06-02 08:53:56] [INFO] ========== arg2 ==========
+[2025-06-02 08:53:56] [INFO] {
+    "epochs": 400,
+    "save_interval": 1000,
+    "val_start_epoch": 50,
+    "es_patience": 50,
+    "es_min_delta": 1e-08,
+    "train_data_path": "./train/shear_flow_Reynolds_5e4_Schmidt_1e-1.hdf5 ./train/shear_flow_Reynolds_5e4_Schmidt_1e0.hdf5 ./train/shear_flow_Reynolds_5e4_Schmidt_1e1.hdf5 ./train/shear_flow_Reynolds_5e4_Schmidt_2e-1.hdf5 ./train/shear_flow_Reynolds_5e4_Schmidt_2e0.hdf5 ./train/shear_flow_Reynolds_5e4_Schmidt_5e-1.hdf5 ./train/shear_flow_Reynolds_5e4_Schmidt_5e0.hdf5",
+    "val_data_path": "./valid/shear_flow_Reynolds_5e4_Schmidt_1e-1.hdf5 ./valid/shear_flow_Reynolds_5e4_Schmidt_1e0.hdf5 ./valid/shear_flow_Reynolds_5e4_Schmidt_1e1.hdf5 ./valid/shear_flow_Reynolds_5e4_Schmidt_2e-1.hdf5 ./valid/shear_flow_Reynolds_5e4_Schmidt_2e0.hdf5 ./valid/shear_flow_Reynolds_5e4_Schmidt_5e-1.hdf5 ./valid/shear_flow_Reynolds_5e4_Schmidt_5e0.hdf5",
+    "test_data_path": "./test/shear_flow_Reynolds_5e4_Schmidt_1e-1.hdf5 ./test/shear_flow_Reynolds_5e4_Schmidt_1e0.hdf5 ./test/shear_flow_Reynolds_5e4_Schmidt_1e1.hdf5 ./test/shear_flow_Reynolds_5e4_Schmidt_2e-1.hdf5 ./test/shear_flow_Reynolds_5e4_Schmidt_2e0.hdf5 ./test/shear_flow_Reynolds_5e4_Schmidt_5e-1.hdf5 ./test/shear_flow_Reynolds_5e4_Schmidt_5e0.hdf5",
+    "save_path": "./",
+    "profiler_ep_start": 0,
+    "profiler_ep_end": 3,
+    "n_filters": 16,
+    "train_micro_batch_size_per_gpu": 240,
+    "gradient_accumulation_steps": 2,
+    "gradient_checkpointing": {
+        "enable": true,
+        "partitioned_modules": [
+            "DCTBlock",
+            "FEBlock"
+        ],
+        "contiguous_memory_optimization": true,
+        "cpu_checkpointing": false
+    },
+    "zero_optimization": {
+        "stage": 1
+    },
+    "fp16": {
+        "enabled": true,
+        "loss_scale": 0,
+        "loss_scale_window": 1000,
+        "hysteresis": 2,
+        "min_loss_scale": 1
+    },
+    "optimizer": {
+        "type": "AdamW",
+        "params": {
+            "lr": 0.0001,
+            "weight_decay": 0.0001,
+            "torch_adam": true
+        }
+    },
+    "scheduler": {
+        "type": "WarmupCosineLR",
+        "params": {
+            "total_num_steps": 15800,
+            "warmup_min_ratio": 0,
+            "cos_min_ratio": 0.1,
+            "warmup_num_steps": 1800,
+            "warmup_type": "log"
+        }
+    },
+    "checkpoint": {
+        "use_node_local_storage": true,
+        "parallel_write": {
+            "enabled": true,
+            "max_concurrent_writes": 8
+        }
+    },
+    "distributed": {
+        "backend": "nccl",
+        "broadcast_buffers": false
+    },
+    "comms_config": {
+        "comms_logger": {
+            "enabled": true,
+            "verbose": false,
+            "prof_all": false,
+            "debug": false
+        },
+        "nccl": {
+            "p2p_net_chunksize": "auto",
+            "max_async_errors": "auto"
+        },
+        "hybrid_engine": {
+            "enabled": false
+        }
+    }
+}
+[2025-06-02 08:53:56] [INFO] =============================
+[2025-06-02 08:54:27] [INFO] Total parameters: 11068021
+[2025-06-02 08:59:47] [INFO] Training samples: 81312
+[2025-06-02 08:59:47] [INFO] Validation samples: 10164
+[2025-06-02 09:07:53] [INFO] Epoch:    0 | Time: 486.2s | Train Loss: 1.126705e+00 | LR: 4.85e-05
+[2025-06-02 09:13:46] [INFO] Epoch:    1 | Time: 352.9s | Train Loss: 6.509574e-01 | LR: 5.86e-05
+[2025-06-02 09:19:40] [INFO] Epoch:    2 | Time: 353.9s | Train Loss: 4.410815e-01 | LR: 6.42e-05
+[2025-06-02 09:25:35] [INFO] Epoch:    3 | Time: 355.1s | Train Loss: 3.150609e-01 | LR: 6.82e-05
+[2025-06-02 09:31:08] [INFO] Epoch:    4 | Time: 333.2s | Train Loss: 2.433782e-01 | LR: 7.12e-05
+[2025-06-02 09:36:42] [INFO] Epoch:    5 | Time: 334.2s | Train Loss: 1.970833e-01 | LR: 7.37e-05
+[2025-06-02 09:42:17] [INFO] Epoch:    6 | Time: 334.5s | Train Loss: 1.649985e-01 | LR: 7.58e-05
+[2025-06-02 09:47:51] [INFO] Epoch:    7 | Time: 334.4s | Train Loss: 1.445421e-01 | LR: 7.76e-05
+[2025-06-02 09:53:24] [INFO] Epoch:    8 | Time: 332.9s | Train Loss: 1.307333e-01 | LR: 7.92e-05
+[2025-06-02 09:58:59] [INFO] Epoch:    9 | Time: 335.1s | Train Loss: 1.207219e-01 | LR: 8.06e-05
+[2025-06-02 10:04:37] [INFO] Epoch:   10 | Time: 337.3s | Train Loss: 1.131084e-01 | LR: 8.19e-05
+[2025-06-02 10:10:13] [INFO] Epoch:   11 | Time: 336.8s | Train Loss: 1.068847e-01 | LR: 8.31e-05
+[2025-06-02 10:15:48] [INFO] Epoch:   12 | Time: 334.0s | Train Loss: 1.016123e-01 | LR: 8.41e-05
+[2025-06-02 10:21:21] [INFO] Epoch:   13 | Time: 333.8s | Train Loss: 9.703912e-02 | LR: 8.51e-05
+[2025-06-02 10:26:55] [INFO] Epoch:   14 | Time: 333.9s | Train Loss: 9.279490e-02 | LR: 8.61e-05
+[2025-06-02 10:32:31] [INFO] Epoch:   15 | Time: 335.4s | Train Loss: 8.941499e-02 | LR: 8.69e-05
+[2025-06-02 10:38:04] [INFO] Epoch:   16 | Time: 333.6s | Train Loss: 8.614496e-02 | LR: 8.77e-05
+[2025-06-02 10:43:38] [INFO] Epoch:   17 | Time: 333.8s | Train Loss: 8.331708e-02 | LR: 8.85e-05
+[2025-06-02 10:49:12] [INFO] Epoch:   18 | Time: 333.9s | Train Loss: 8.059806e-02 | LR: 8.92e-05
+[2025-06-02 10:54:46] [INFO] Epoch:   19 | Time: 334.1s | Train Loss: 7.806775e-02 | LR: 8.99e-05
+[2025-06-02 11:00:24] [INFO] Epoch:   20 | Time: 337.5s | Train Loss: 7.557235e-02 | LR: 9.06e-05
+[2025-06-02 11:05:58] [INFO] Epoch:   21 | Time: 334.6s | Train Loss: 7.332844e-02 | LR: 9.12e-05
+[2025-06-02 11:11:36] [INFO] Epoch:   22 | Time: 338.2s | Train Loss: 7.140482e-02 | LR: 9.18e-05
+[2025-06-02 11:17:11] [INFO] Epoch:   23 | Time: 334.8s | Train Loss: 6.914580e-02 | LR: 9.24e-05
+[2025-06-02 11:22:45] [INFO] Epoch:   24 | Time: 333.8s | Train Loss: 6.692240e-02 | LR: 9.29e-05
+[2025-06-02 11:28:19] [INFO] Epoch:   25 | Time: 334.0s | Train Loss: 6.498293e-02 | LR: 9.34e-05
+[2025-06-02 11:33:53] [INFO] Epoch:   26 | Time: 333.7s | Train Loss: 6.315430e-02 | LR: 9.39e-05
+[2025-06-02 11:39:27] [INFO] Epoch:   27 | Time: 334.6s | Train Loss: 6.119451e-02 | LR: 9.44e-05
+[2025-06-02 11:45:01] [INFO] Epoch:   28 | Time: 333.4s | Train Loss: 5.952620e-02 | LR: 9.49e-05
+[2025-06-02 11:50:35] [INFO] Epoch:   29 | Time: 333.9s | Train Loss: 5.719810e-02 | LR: 9.54e-05
+[2025-06-02 11:56:08] [INFO] Epoch:   30 | Time: 333.4s | Train Loss: 5.540796e-02 | LR: 9.58e-05
+[2025-06-02 12:01:42] [INFO] Epoch:   31 | Time: 333.5s | Train Loss: 5.350622e-02 | LR: 9.62e-05
+[2025-06-02 12:07:19] [INFO] Epoch:   32 | Time: 337.1s | Train Loss: 5.160103e-02 | LR: 9.66e-05
+[2025-06-02 12:12:52] [INFO] Epoch:   33 | Time: 333.5s | Train Loss: 4.983684e-02 | LR: 9.70e-05
+[2025-06-02 12:18:27] [INFO] Epoch:   34 | Time: 334.8s | Train Loss: 4.839384e-02 | LR: 9.74e-05
+[2025-06-02 12:24:01] [INFO] Epoch:   35 | Time: 333.8s | Train Loss: 4.690706e-02 | LR: 9.78e-05
+[2025-06-02 12:29:35] [INFO] Epoch:   36 | Time: 334.1s | Train Loss: 4.562713e-02 | LR: 9.82e-05
+[2025-06-02 12:35:09] [INFO] Epoch:   37 | Time: 333.5s | Train Loss: 4.435682e-02 | LR: 9.85e-05
+[2025-06-02 12:40:43] [INFO] Epoch:   38 | Time: 334.2s | Train Loss: 4.300137e-02 | LR: 9.89e-05
+[2025-06-02 12:46:17] [INFO] Epoch:   39 | Time: 333.8s | Train Loss: 4.171229e-02 | LR: 9.92e-05
+[2025-06-02 12:51:49] [INFO] Epoch:   40 | Time: 332.6s | Train Loss: 4.080634e-02 | LR: 9.95e-05
+[2025-06-02 12:57:24] [INFO] Epoch:   41 | Time: 334.0s | Train Loss: 4.002220e-02 | LR: 9.99e-05
+[2025-06-02 13:02:57] [INFO] Epoch:   42 | Time: 333.4s | Train Loss: 3.947099e-02 | LR: 1.00e-04
+[2025-06-02 13:08:32] [INFO] Epoch:   43 | Time: 335.1s | Train Loss: 3.847496e-02 | LR: 1.00e-04
+[2025-06-02 13:14:08] [INFO] Epoch:   44 | Time: 336.3s | Train Loss: 3.768527e-02 | LR: 1.00e-04
+[2025-06-02 13:19:42] [INFO] Epoch:   45 | Time: 332.9s | Train Loss: 3.712345e-02 | LR: 1.00e-04
+[2025-06-02 13:25:17] [INFO] Epoch:   46 | Time: 335.3s | Train Loss: 3.639281e-02 | LR: 1.00e-04
+[2025-06-02 13:30:51] [INFO] Epoch:   47 | Time: 334.4s | Train Loss: 3.559273e-02 | LR: 9.99e-05
+[2025-06-02 13:36:25] [INFO] Epoch:   48 | Time: 333.6s | Train Loss: 3.496707e-02 | LR: 9.99e-05
+[2025-06-02 13:41:58] [INFO] Epoch:   49 | Time: 333.2s | Train Loss: 3.457161e-02 | LR: 9.99e-05
+[2025-06-02 13:47:31] [INFO] Epoch:   50 | Time: 332.5s | Train Loss: 3.412388e-02 | LR: 9.99e-05
+[2025-06-02 13:47:58] [INFO] Epoch:   50 | Time:  26.9s | Val   Loss: 1.985456e-02 |
+[2025-06-02 13:48:02] [INFO] [ best ] Checkpoint saved at epoch 50
+[2025-06-02 13:53:35] [INFO] Epoch:   51 | Time: 333.3s | Train Loss: 3.365669e-02 | LR: 9.98e-05
+[2025-06-02 13:53:43] [INFO] Epoch:   51 | Time:   7.9s | Val   Loss: 1.969098e-02 |
+[2025-06-02 13:53:44] [INFO] [ best ] Checkpoint saved at epoch 51
+[2025-06-02 13:59:18] [INFO] Epoch:   52 | Time: 334.2s | Train Loss: 3.315329e-02 | LR: 9.98e-05
+[2025-06-02 13:59:26] [INFO] Epoch:   52 | Time:   8.1s | Val   Loss: 1.996596e-02 |
+[2025-06-02 14:05:01] [INFO] Epoch:   53 | Time: 334.2s | Train Loss: 3.257867e-02 | LR: 9.97e-05
+[2025-06-02 14:05:09] [INFO] Epoch:   53 | Time:   8.0s | Val   Loss: 1.908773e-02 |
+[2025-06-02 14:05:10] [INFO] [ best ] Checkpoint saved at epoch 53
+[2025-06-02 14:10:42] [INFO] Epoch:   54 | Time: 332.3s | Train Loss: 3.234076e-02 | LR: 9.97e-05
+[2025-06-02 14:10:50] [INFO] Epoch:   54 | Time:   8.1s | Val   Loss: 1.958885e-02 |
+[2025-06-02 14:16:31] [INFO] Epoch:   55 | Time: 340.4s | Train Loss: 3.176739e-02 | LR: 9.96e-05
+[2025-06-02 14:16:39] [INFO] Epoch:   55 | Time:   8.0s | Val   Loss: 1.905974e-02 |
+[2025-06-02 14:16:41] [INFO] [ best ] Checkpoint saved at epoch 55
+[2025-06-02 14:22:14] [INFO] Epoch:   56 | Time: 332.8s | Train Loss: 3.155960e-02 | LR: 9.96e-05
+[2025-06-02 14:22:22] [INFO] Epoch:   56 | Time:   8.0s | Val   Loss: 1.953279e-02 |
+[2025-06-02 14:27:57] [INFO] Epoch:   57 | Time: 335.0s | Train Loss: 3.108804e-02 | LR: 9.95e-05
+[2025-06-02 14:28:05] [INFO] Epoch:   57 | Time:   8.0s | Val   Loss: 1.810685e-02 |
+[2025-06-02 14:28:07] [INFO] [ best ] Checkpoint saved at epoch 57
+[2025-06-02 14:33:41] [INFO] Epoch:   58 | Time: 334.1s | Train Loss: 3.046438e-02 | LR: 9.94e-05
+[2025-06-02 14:33:49] [INFO] Epoch:   58 | Time:   7.9s | Val   Loss: 1.872757e-02 |
+[2025-06-02 14:39:22] [INFO] Epoch:   59 | Time: 333.3s | Train Loss: 3.030644e-02 | LR: 9.94e-05
+[2025-06-02 14:39:30] [INFO] Epoch:   59 | Time:   7.9s | Val   Loss: 1.770773e-02 |
+[2025-06-02 14:39:32] [INFO] [ best ] Checkpoint saved at epoch 59
+[2025-06-02 14:45:06] [INFO] Epoch:   60 | Time: 333.6s | Train Loss: 3.010656e-02 | LR: 9.93e-05
+[2025-06-02 14:45:14] [INFO] Epoch:   60 | Time:   8.0s | Val   Loss: 1.826982e-02 |
+[2025-06-02 14:50:49] [INFO] Epoch:   61 | Time: 335.1s | Train Loss: 2.966541e-02 | LR: 9.92e-05
+[2025-06-02 14:50:57] [INFO] Epoch:   61 | Time:   8.1s | Val   Loss: 1.748287e-02 |
+[2025-06-02 14:50:59] [INFO] [ best ] Checkpoint saved at epoch 61
+[2025-06-02 14:56:31] [INFO] Epoch:   62 | Time: 332.7s | Train Loss: 2.931666e-02 | LR: 9.91e-05
+[2025-06-02 14:56:40] [INFO] Epoch:   62 | Time:   7.8s | Val   Loss: 1.834775e-02 |
+[2025-06-02 15:02:13] [INFO] Epoch:   63 | Time: 333.2s | Train Loss: 2.901062e-02 | LR: 9.91e-05
+[2025-06-02 15:02:21] [INFO] Epoch:   63 | Time:   7.9s | Val   Loss: 1.748449e-02 |
+[2025-06-02 15:07:55] [INFO] Epoch:   64 | Time: 334.6s | Train Loss: 2.892238e-02 | LR: 9.90e-05
+[2025-06-02 15:08:03] [INFO] Epoch:   64 | Time:   8.0s | Val   Loss: 1.705351e-02 |
+[2025-06-02 15:08:05] [INFO] [ best ] Checkpoint saved at epoch 64
+[2025-06-02 15:13:39] [INFO] Epoch:   65 | Time: 333.9s | Train Loss: 2.845934e-02 | LR: 9.89e-05
+[2025-06-02 15:13:47] [INFO] Epoch:   65 | Time:   8.1s | Val   Loss: 1.669613e-02 |
+[2025-06-02 15:13:48] [INFO] [ best ] Checkpoint saved at epoch 65
+[2025-06-02 15:19:21] [INFO] Epoch:   66 | Time: 333.3s | Train Loss: 2.821551e-02 | LR: 9.88e-05
+[2025-06-02 15:19:31] [INFO] Epoch:   66 | Time:   9.4s | Val   Loss: 1.605753e-02 |
+[2025-06-02 15:19:32] [INFO] [ best ] Checkpoint saved at epoch 66
+[2025-06-02 15:25:07] [INFO] Epoch:   67 | Time: 334.3s | Train Loss: 2.768425e-02 | LR: 9.87e-05
+[2025-06-02 15:25:15] [INFO] Epoch:   67 | Time:   7.8s | Val   Loss: 1.673735e-02 |
+[2025-06-02 15:30:52] [INFO] Epoch:   68 | Time: 337.6s | Train Loss: 2.756562e-02 | LR: 9.86e-05
+[2025-06-02 15:31:00] [INFO] Epoch:   68 | Time:   8.0s | Val   Loss: 1.665813e-02 |
+[2025-06-02 15:36:34] [INFO] Epoch:   69 | Time: 333.9s | Train Loss: 2.734672e-02 | LR: 9.85e-05
+[2025-06-02 15:36:42] [INFO] Epoch:   69 | Time:   8.1s | Val   Loss: 1.662548e-02 |
+[2025-06-02 15:42:16] [INFO] Epoch:   70 | Time: 334.0s | Train Loss: 2.706961e-02 | LR: 9.83e-05
+[2025-06-02 15:42:25] [INFO] Epoch:   70 | Time:   7.9s | Val   Loss: 1.571266e-02 |
+[2025-06-02 15:42:27] [INFO] [ best ] Checkpoint saved at epoch 70
+[2025-06-02 15:48:00] [INFO] Epoch:   71 | Time: 333.0s | Train Loss: 2.689902e-02 | LR: 9.82e-05
+[2025-06-02 15:48:08] [INFO] Epoch:   71 | Time:   7.9s | Val   Loss: 1.543865e-02 |
+[2025-06-02 15:48:09] [INFO] [ best ] Checkpoint saved at epoch 71
+[2025-06-02 15:53:43] [INFO] Epoch:   72 | Time: 334.0s | Train Loss: 2.675108e-02 | LR: 9.81e-05
+[2025-06-02 15:53:51] [INFO] Epoch:   72 | Time:   8.0s | Val   Loss: 1.582667e-02 |
+[2025-06-02 15:59:29] [INFO] Epoch:   73 | Time: 337.7s | Train Loss: 2.630731e-02 | LR: 9.80e-05
+[2025-06-02 15:59:37] [INFO] Epoch:   73 | Time:   8.0s | Val   Loss: 1.591574e-02 |
+[2025-06-02 16:05:10] [INFO] Epoch:   74 | Time: 333.3s | Train Loss: 2.623694e-02 | LR: 9.79e-05
+[2025-06-02 16:05:18] [INFO] Epoch:   74 | Time:   8.1s | Val   Loss: 1.596547e-02 |
+[2025-06-02 16:10:52] [INFO] Epoch:   75 | Time: 334.3s | Train Loss: 2.597790e-02 | LR: 9.77e-05
+[2025-06-02 16:11:01] [INFO] Epoch:   75 | Time:   7.9s | Val   Loss: 1.554658e-02 |
+[2025-06-02 16:16:35] [INFO] Epoch:   76 | Time: 334.9s | Train Loss: 2.585875e-02 | LR: 9.76e-05
+[2025-06-02 16:16:44] [INFO] Epoch:   76 | Time:   8.1s | Val   Loss: 1.580601e-02 |
+[2025-06-02 16:22:18] [INFO] Epoch:   77 | Time: 334.3s | Train Loss: 2.548308e-02 | LR: 9.74e-05
+[2025-06-02 16:22:26] [INFO] Epoch:   77 | Time:   8.0s | Val   Loss: 1.556279e-02 |
+[2025-06-02 16:28:00] [INFO] Epoch:   78 | Time: 334.1s | Train Loss: 2.548320e-02 | LR: 9.73e-05
+[2025-06-02 16:28:08] [INFO] Epoch:   78 | Time:   7.9s | Val   Loss: 1.546390e-02 |
+[2025-06-02 16:33:41] [INFO] Epoch:   79 | Time: 333.4s | Train Loss: 2.514076e-02 | LR: 9.71e-05
+[2025-06-02 16:33:50] [INFO] Epoch:   79 | Time:   8.0s | Val   Loss: 1.515377e-02 |
+[2025-06-02 16:33:51] [INFO] [ best ] Checkpoint saved at epoch 79
+[2025-06-02 16:39:28] [INFO] Epoch:   80 | Time: 336.4s | Train Loss: 2.490795e-02 | LR: 9.70e-05
+[2025-06-02 16:39:36] [INFO] Epoch:   80 | Time:   8.0s | Val   Loss: 1.493454e-02 |
+[2025-06-02 16:39:37] [INFO] [ best ] Checkpoint saved at epoch 80
+[2025-06-02 16:45:11] [INFO] Epoch:   81 | Time: 333.3s | Train Loss: 2.464540e-02 | LR: 9.68e-05
+[2025-06-02 16:45:19] [INFO] Epoch:   81 | Time:   8.0s | Val   Loss: 1.478408e-02 |
+[2025-06-02 16:45:20] [INFO] [ best ] Checkpoint saved at epoch 81
+[2025-06-02 16:50:53] [INFO] Epoch:   82 | Time: 333.0s | Train Loss: 2.443121e-02 | LR: 9.67e-05
+[2025-06-02 16:51:01] [INFO] Epoch:   82 | Time:   7.9s | Val   Loss: 1.437946e-02 |
+[2025-06-02 16:51:02] [INFO] [ best ] Checkpoint saved at epoch 82
+[2025-06-02 16:56:36] [INFO] Epoch:   83 | Time: 333.2s | Train Loss: 2.423569e-02 | LR: 9.65e-05
+[2025-06-02 16:56:44] [INFO] Epoch:   83 | Time:   8.0s | Val   Loss: 1.450283e-02 |
+[2025-06-02 17:02:21] [INFO] Epoch:   84 | Time: 336.9s | Train Loss: 2.420238e-02 | LR: 9.63e-05
+[2025-06-02 17:02:29] [INFO] Epoch:   84 | Time:   8.2s | Val   Loss: 1.419948e-02 |
+[2025-06-02 17:02:31] [INFO] [ best ] Checkpoint saved at epoch 84
+[2025-06-02 17:08:05] [INFO] Epoch:   85 | Time: 333.5s | Train Loss: 2.426277e-02 | LR: 9.62e-05
+[2025-06-02 17:08:13] [INFO] Epoch:   85 | Time:   8.1s | Val   Loss: 1.461442e-02 |
+[2025-06-02 17:13:47] [INFO] Epoch:   86 | Time: 333.7s | Train Loss: 2.382478e-02 | LR: 9.60e-05
+[2025-06-02 17:13:55] [INFO] Epoch:   86 | Time:   7.9s | Val   Loss: 1.435892e-02 |
+[2025-06-02 17:19:29] [INFO] Epoch:   87 | Time: 333.8s | Train Loss: 2.358692e-02 | LR: 9.58e-05
+[2025-06-02 17:19:36] [INFO] Epoch:   87 | Time:   7.9s | Val   Loss: 1.445969e-02 |
+[2025-06-02 17:25:11] [INFO] Epoch:   88 | Time: 333.4s | Train Loss: 2.352692e-02 | LR: 9.56e-05
+[2025-06-02 17:25:19] [INFO] Epoch:   88 | Time:   7.9s | Val   Loss: 1.414283e-02 |
+[2025-06-02 17:25:20] [INFO] [ best ] Checkpoint saved at epoch 88
+[2025-06-02 17:30:52] [INFO] Epoch:   89 | Time: 332.3s | Train Loss: 2.321201e-02 | LR: 9.55e-05
+[2025-06-02 17:31:01] [INFO] Epoch:   89 | Time:   7.9s | Val   Loss: 1.433508e-02 |
+[2025-06-02 17:36:34] [INFO] Epoch:   90 | Time: 333.0s | Train Loss: 2.313489e-02 | LR: 9.53e-05
+[2025-06-02 17:36:42] [INFO] Epoch:   90 | Time:   8.0s | Val   Loss: 1.439714e-02 |
+[2025-06-02 17:42:16] [INFO] Epoch:   91 | Time: 333.9s | Train Loss: 2.310422e-02 | LR: 9.51e-05
+[2025-06-02 17:42:24] [INFO] Epoch:   91 | Time:   8.0s | Val   Loss: 1.395553e-02 |
+[2025-06-02 17:42:25] [INFO] [ best ] Checkpoint saved at epoch 91
+[2025-06-02 17:47:58] [INFO] Epoch:   92 | Time: 332.7s | Train Loss: 2.276852e-02 | LR: 9.49e-05
+[2025-06-02 17:48:06] [INFO] Epoch:   92 | Time:   7.9s | Val   Loss: 1.386270e-02 |
+[2025-06-02 17:48:07] [INFO] [ best ] Checkpoint saved at epoch 92
+[2025-06-02 17:53:40] [INFO] Epoch:   93 | Time: 333.4s | Train Loss: 2.272901e-02 | LR: 9.47e-05
+[2025-06-02 17:53:49] [INFO] Epoch:   93 | Time:   8.1s | Val   Loss: 1.418216e-02 |
+[2025-06-02 17:59:22] [INFO] Epoch:   94 | Time: 333.4s | Train Loss: 2.251137e-02 | LR: 9.45e-05
+[2025-06-02 17:59:30] [INFO] Epoch:   94 | Time:   8.0s | Val   Loss: 1.405561e-02 |
+[2025-06-02 18:05:04] [INFO] Epoch:   95 | Time: 333.9s | Train Loss: 2.232101e-02 | LR: 9.43e-05
+[2025-06-02 18:05:12] [INFO] Epoch:   95 | Time:   8.1s | Val   Loss: 1.398824e-02 |
+[2025-06-02 18:10:48] [INFO] Epoch:   96 | Time: 335.7s | Train Loss: 2.226502e-02 | LR: 9.41e-05
+[2025-06-02 18:10:56] [INFO] Epoch:   96 | Time:   8.1s | Val   Loss: 1.358331e-02 |
+[2025-06-02 18:10:57] [INFO] [ best ] Checkpoint saved at epoch 96
+[2025-06-02 18:16:30] [INFO] Epoch:   97 | Time: 333.2s | Train Loss: 2.208097e-02 | LR: 9.38e-05
+[2025-06-02 18:16:39] [INFO] Epoch:   97 | Time:   8.1s | Val   Loss: 1.373389e-02 |
+[2025-06-02 18:22:12] [INFO] Epoch:   98 | Time: 333.5s | Train Loss: 2.206993e-02 | LR: 9.36e-05
+[2025-06-02 18:22:20] [INFO] Epoch:   98 | Time:   7.9s | Val   Loss: 1.399513e-02 |
+[2025-06-02 18:27:54] [INFO] Epoch:   99 | Time: 333.7s | Train Loss: 2.198118e-02 | LR: 9.34e-05
+[2025-06-02 18:28:02] [INFO] Epoch:   99 | Time:   8.0s | Val   Loss: 1.363630e-02 |
+[2025-06-02 18:33:47] [INFO] Epoch:  100 | Time: 345.5s | Train Loss: 2.186099e-02 | LR: 9.32e-05
+[2025-06-02 18:33:56] [INFO] Epoch:  100 | Time:   8.3s | Val   Loss: 1.364844e-02 |
+[2025-06-02 18:39:29] [INFO] Epoch:  101 | Time: 333.6s | Train Loss: 2.154742e-02 | LR: 9.29e-05
+[2025-06-02 18:39:38] [INFO] Epoch:  101 | Time:   8.2s | Val   Loss: 1.313401e-02 |
+[2025-06-02 18:39:40] [INFO] [ best ] Checkpoint saved at epoch 101
+[2025-06-02 18:45:13] [INFO] Epoch:  102 | Time: 332.8s | Train Loss: 2.142357e-02 | LR: 9.27e-05
+[2025-06-02 18:45:21] [INFO] Epoch:  102 | Time:   8.0s | Val   Loss: 1.314148e-02 |
+[2025-06-02 18:50:55] [INFO] Epoch:  103 | Time: 333.8s | Train Loss: 2.126634e-02 | LR: 9.25e-05
+[2025-06-02 18:51:03] [INFO] Epoch:  103 | Time:   8.0s | Val   Loss: 1.322920e-02 |
+[2025-06-02 18:56:36] [INFO] Epoch:  104 | Time: 333.4s | Train Loss: 2.120524e-02 | LR: 9.22e-05
+[2025-06-02 18:56:44] [INFO] Epoch:  104 | Time:   8.1s | Val   Loss: 1.343177e-02 |
+[2025-06-02 19:02:18] [INFO] Epoch:  105 | Time: 333.2s | Train Loss: 2.096145e-02 | LR: 9.20e-05
+[2025-06-02 19:02:26] [INFO] Epoch:  105 | Time:   8.1s | Val   Loss: 1.289938e-02 |
+[2025-06-02 19:02:27] [INFO] [ best ] Checkpoint saved at epoch 105
+[2025-06-02 19:08:00] [INFO] Epoch:  106 | Time: 333.3s | Train Loss: 2.104066e-02 | LR: 9.17e-05
+[2025-06-02 19:08:08] [INFO] Epoch:  106 | Time:   8.1s | Val   Loss: 1.290619e-02 |
+[2025-06-02 19:13:44] [INFO] Epoch:  107 | Time: 335.4s | Train Loss: 2.085714e-02 | LR: 9.15e-05
+[2025-06-02 19:13:52] [INFO] Epoch:  107 | Time:   8.1s | Val   Loss: 1.302354e-02 |
+[2025-06-02 19:19:26] [INFO] Epoch:  108 | Time: 333.7s | Train Loss: 2.087738e-02 | LR: 9.13e-05
+[2025-06-02 19:19:34] [INFO] Epoch:  108 | Time:   8.0s | Val   Loss: 1.305247e-02 |
+[2025-06-02 19:25:08] [INFO] Epoch:  109 | Time: 334.2s | Train Loss: 2.071166e-02 | LR: 9.10e-05
+[2025-06-02 19:25:16] [INFO] Epoch:  109 | Time:   8.2s | Val   Loss: 1.291735e-02 |
+[2025-06-02 19:30:57] [INFO] Epoch:  110 | Time: 340.6s | Train Loss: 2.053983e-02 | LR: 9.07e-05
+[2025-06-02 19:31:05] [INFO] Epoch:  110 | Time:   8.0s | Val   Loss: 1.274558e-02 |
+[2025-06-02 19:31:07] [INFO] [ best ] Checkpoint saved at epoch 110
+[2025-06-02 19:36:40] [INFO] Epoch:  111 | Time: 332.9s | Train Loss: 2.031336e-02 | LR: 9.05e-05
+[2025-06-02 19:36:48] [INFO] Epoch:  111 | Time:   8.1s | Val   Loss: 1.278041e-02 |
+[2025-06-02 19:42:23] [INFO] Epoch:  112 | Time: 334.9s | Train Loss: 2.037494e-02 | LR: 9.02e-05
+[2025-06-02 19:42:31] [INFO] Epoch:  112 | Time:   7.9s | Val   Loss: 1.263609e-02 |
+[2025-06-02 19:42:33] [INFO] [ best ] Checkpoint saved at epoch 112
+[2025-06-02 19:48:06] [INFO] Epoch:  113 | Time: 333.3s | Train Loss: 2.018994e-02 | LR: 8.99e-05
+[2025-06-02 19:48:14] [INFO] Epoch:  113 | Time:   8.1s | Val   Loss: 1.265849e-02 |
+[2025-06-02 19:53:47] [INFO] Epoch:  114 | Time: 333.3s | Train Loss: 2.003779e-02 | LR: 8.97e-05
+[2025-06-02 19:53:56] [INFO] Epoch:  114 | Time:   8.1s | Val   Loss: 1.267851e-02 |
+[2025-06-02 19:59:29] [INFO] Epoch:  115 | Time: 333.6s | Train Loss: 1.993358e-02 | LR: 8.94e-05
+[2025-06-02 19:59:37] [INFO] Epoch:  115 | Time:   8.0s | Val   Loss: 1.257458e-02 |
+[2025-06-02 19:59:38] [INFO] [ best ] Checkpoint saved at epoch 115
+[2025-06-02 20:05:12] [INFO] Epoch:  116 | Time: 333.8s | Train Loss: 1.992652e-02 | LR: 8.91e-05
+[2025-06-02 20:05:20] [INFO] Epoch:  116 | Time:   8.1s | Val   Loss: 1.264109e-02 |
+[2025-06-02 20:10:54] [INFO] Epoch:  117 | Time: 333.6s | Train Loss: 1.980970e-02 | LR: 8.88e-05
+[2025-06-02 20:11:02] [INFO] Epoch:  117 | Time:   8.1s | Val   Loss: 1.233381e-02 |
+[2025-06-02 20:11:03] [INFO] [ best ] Checkpoint saved at epoch 117
+[2025-06-02 20:16:38] [INFO] Epoch:  118 | Time: 334.2s | Train Loss: 1.974771e-02 | LR: 8.85e-05
+[2025-06-02 20:16:46] [INFO] Epoch:  118 | Time:   8.1s | Val   Loss: 1.268928e-02 |
+[2025-06-02 20:22:21] [INFO] Epoch:  119 | Time: 335.7s | Train Loss: 1.962500e-02 | LR: 8.83e-05
+[2025-06-02 20:22:29] [INFO] Epoch:  119 | Time:   7.9s | Val   Loss: 1.216771e-02 |
+[2025-06-02 20:22:31] [INFO] [ best ] Checkpoint saved at epoch 119
+[2025-06-02 20:28:04] [INFO] Epoch:  120 | Time: 332.9s | Train Loss: 1.958308e-02 | LR: 8.80e-05
+[2025-06-02 20:28:13] [INFO] Epoch:  120 | Time:   8.0s | Val   Loss: 1.212343e-02 |
+[2025-06-02 20:28:14] [INFO] [ best ] Checkpoint saved at epoch 120
+[2025-06-02 20:33:49] [INFO] Epoch:  121 | Time: 335.1s | Train Loss: 1.954903e-02 | LR: 8.77e-05
+[2025-06-02 20:33:57] [INFO] Epoch:  121 | Time:   8.3s | Val   Loss: 1.225364e-02 |
+[2025-06-02 20:39:32] [INFO] Epoch:  122 | Time: 334.8s | Train Loss: 1.917751e-02 | LR: 8.74e-05
+[2025-06-02 20:39:40] [INFO] Epoch:  122 | Time:   8.0s | Val   Loss: 1.222727e-02 |
+[2025-06-02 20:45:15] [INFO] Epoch:  123 | Time: 334.7s | Train Loss: 1.924475e-02 | LR: 8.71e-05
+[2025-06-02 20:45:23] [INFO] Epoch:  123 | Time:   8.1s | Val   Loss: 1.235989e-02 |
+[2025-06-02 20:50:58] [INFO] Epoch:  124 | Time: 334.4s | Train Loss: 1.910755e-02 | LR: 8.68e-05
+[2025-06-02 20:51:06] [INFO] Epoch:  124 | Time:   8.0s | Val   Loss: 1.192866e-02 |
+[2025-06-02 20:51:07] [INFO] [ best ] Checkpoint saved at epoch 124
+[2025-06-02 20:56:41] [INFO] Epoch:  125 | Time: 333.5s | Train Loss: 1.903042e-02 | LR: 8.65e-05
+[2025-06-02 20:56:49] [INFO] Epoch:  125 | Time:   7.9s | Val   Loss: 1.199493e-02 |
+[2025-06-02 21:02:23] [INFO] Epoch:  126 | Time: 333.6s | Train Loss: 1.905435e-02 | LR: 8.62e-05
+[2025-06-02 21:02:31] [INFO] Epoch:  126 | Time:   8.1s | Val   Loss: 1.195364e-02 |
+[2025-06-02 21:08:04] [INFO] Epoch:  127 | Time: 333.4s | Train Loss: 1.891445e-02 | LR: 8.58e-05
+[2025-06-02 21:08:12] [INFO] Epoch:  127 | Time:   7.9s | Val   Loss: 1.227792e-02 |
+[2025-06-02 21:13:48] [INFO] Epoch:  128 | Time: 335.8s | Train Loss: 1.876406e-02 | LR: 8.55e-05
+[2025-06-02 21:13:56] [INFO] Epoch:  128 | Time:   8.0s | Val   Loss: 1.160086e-02 |
+[2025-06-02 21:13:58] [INFO] [ best ] Checkpoint saved at epoch 128
+[2025-06-02 21:19:32] [INFO] Epoch:  129 | Time: 333.6s | Train Loss: 1.879119e-02 | LR: 8.52e-05
+[2025-06-02 21:19:40] [INFO] Epoch:  129 | Time:   8.0s | Val   Loss: 1.182442e-02 |
+[2025-06-02 21:25:14] [INFO] Epoch:  130 | Time: 334.3s | Train Loss: 1.868343e-02 | LR: 8.49e-05
+[2025-06-02 21:25:22] [INFO] Epoch:  130 | Time:   7.9s | Val   Loss: 1.153297e-02 |
+[2025-06-02 21:25:24] [INFO] [ best ] Checkpoint saved at epoch 130
+[2025-06-02 21:30:58] [INFO] Epoch:  131 | Time: 334.1s | Train Loss: 1.849896e-02 | LR: 8.46e-05
+[2025-06-02 21:31:06] [INFO] Epoch:  131 | Time:   7.9s | Val   Loss: 1.166817e-02 |
+[2025-06-02 21:36:40] [INFO] Epoch:  132 | Time: 333.9s | Train Loss: 1.843354e-02 | LR: 8.43e-05
+[2025-06-02 21:36:48] [INFO] Epoch:  132 | Time:   8.0s | Val   Loss: 1.151400e-02 |
+[2025-06-02 21:36:49] [INFO] [ best ] Checkpoint saved at epoch 132
+[2025-06-02 21:42:25] [INFO] Epoch:  133 | Time: 335.6s | Train Loss: 1.866576e-02 | LR: 8.39e-05
+[2025-06-02 21:42:33] [INFO] Epoch:  133 | Time:   8.0s | Val   Loss: 1.184400e-02 |
+[2025-06-02 21:48:06] [INFO] Epoch:  134 | Time: 333.7s | Train Loss: 1.843852e-02 | LR: 8.36e-05
+[2025-06-02 21:48:14] [INFO] Epoch:  134 | Time:   7.9s | Val   Loss: 1.202611e-02 |
+[2025-06-02 21:53:49] [INFO] Epoch:  135 | Time: 334.1s | Train Loss: 1.824931e-02 | LR: 8.33e-05
+[2025-06-02 21:53:57] [INFO] Epoch:  135 | Time:   7.9s | Val   Loss: 1.143591e-02 |
+[2025-06-02 21:53:58] [INFO] [ best ] Checkpoint saved at epoch 135
+[2025-06-02 21:59:31] [INFO] Epoch:  136 | Time: 333.0s | Train Loss: 1.821573e-02 | LR: 8.29e-05
+[2025-06-02 21:59:39] [INFO] Epoch:  136 | Time:   8.0s | Val   Loss: 1.166070e-02 |
+[2025-06-02 22:05:13] [INFO] Epoch:  137 | Time: 333.6s | Train Loss: 1.808880e-02 | LR: 8.26e-05
+[2025-06-02 22:05:21] [INFO] Epoch:  137 | Time:   8.1s | Val   Loss: 1.142107e-02 |
+[2025-06-02 22:05:22] [INFO] [ best ] Checkpoint saved at epoch 137
+[2025-06-02 22:10:56] [INFO] Epoch:  138 | Time: 333.1s | Train Loss: 1.801050e-02 | LR: 8.23e-05
+[2025-06-02 22:11:04] [INFO] Epoch:  138 | Time:   8.1s | Val   Loss: 1.140691e-02 |
+[2025-06-02 22:11:05] [INFO] [ best ] Checkpoint saved at epoch 138
+[2025-06-02 22:16:47] [INFO] Epoch:  139 | Time: 342.0s | Train Loss: 1.788892e-02 | LR: 8.19e-05
+[2025-06-02 22:16:55] [INFO] Epoch:  139 | Time:   8.0s | Val   Loss: 1.146243e-02 |
+[2025-06-02 22:22:29] [INFO] Epoch:  140 | Time: 333.5s | Train Loss: 1.790214e-02 | LR: 8.16e-05
+[2025-06-02 22:22:37] [INFO] Epoch:  140 | Time:   8.1s | Val   Loss: 1.190008e-02 |
+[2025-06-02 22:28:11] [INFO] Epoch:  141 | Time: 334.4s | Train Loss: 1.791170e-02 | LR: 8.12e-05
+[2025-06-02 22:28:19] [INFO] Epoch:  141 | Time:   8.0s | Val   Loss: 1.137594e-02 |
+[2025-06-02 22:28:21] [INFO] [ best ] Checkpoint saved at epoch 141
+[2025-06-02 22:33:55] [INFO] Epoch:  142 | Time: 333.8s | Train Loss: 1.765289e-02 | LR: 8.09e-05
+[2025-06-02 22:34:03] [INFO] Epoch:  142 | Time:   7.9s | Val   Loss: 1.098166e-02 |
+[2025-06-02 22:34:04] [INFO] [ best ] Checkpoint saved at epoch 142
+[2025-06-02 22:39:37] [INFO] Epoch:  143 | Time: 333.3s | Train Loss: 1.780515e-02 | LR: 8.05e-05
+[2025-06-02 22:39:45] [INFO] Epoch:  143 | Time:   8.0s | Val   Loss: 1.091299e-02 |
+[2025-06-02 22:39:47] [INFO] [ best ] Checkpoint saved at epoch 143
+[2025-06-02 22:45:23] [INFO] Epoch:  144 | Time: 336.2s | Train Loss: 1.763477e-02 | LR: 8.02e-05
+[2025-06-02 22:45:31] [INFO] Epoch:  144 | Time:   8.0s | Val   Loss: 1.184103e-02 |
+[2025-06-02 22:51:05] [INFO] Epoch:  145 | Time: 333.7s | Train Loss: 1.756920e-02 | LR: 7.98e-05
+[2025-06-02 22:51:13] [INFO] Epoch:  145 | Time:   8.0s | Val   Loss: 1.135479e-02 |
+[2025-06-02 22:56:47] [INFO] Epoch:  146 | Time: 333.7s | Train Loss: 1.759896e-02 | LR: 7.95e-05
+[2025-06-02 22:56:55] [INFO] Epoch:  146 | Time:   8.0s | Val   Loss: 1.132367e-02 |
+[2025-06-02 23:02:28] [INFO] Epoch:  147 | Time: 333.3s | Train Loss: 1.737984e-02 | LR: 7.91e-05
+[2025-06-02 23:02:36] [INFO] Epoch:  147 | Time:   8.0s | Val   Loss: 1.108620e-02 |
+[2025-06-02 23:08:10] [INFO] Epoch:  148 | Time: 333.8s | Train Loss: 1.742397e-02 | LR: 7.87e-05
+[2025-06-02 23:08:18] [INFO] Epoch:  148 | Time:   8.1s | Val   Loss: 1.110634e-02 |
+[2025-06-02 23:13:52] [INFO] Epoch:  149 | Time: 333.8s | Train Loss: 1.739571e-02 | LR: 7.84e-05
+[2025-06-02 23:14:00] [INFO] Epoch:  149 | Time:   8.0s | Val   Loss: 1.107640e-02 |
+[2025-06-02 23:19:34] [INFO] Epoch:  150 | Time: 333.9s | Train Loss: 1.721232e-02 | LR: 7.80e-05
+[2025-06-02 23:19:42] [INFO] Epoch:  150 | Time:   8.1s | Val   Loss: 1.099636e-02 |
+[2025-06-02 23:25:19] [INFO] Epoch:  151 | Time: 337.1s | Train Loss: 1.715769e-02 | LR: 7.76e-05
+[2025-06-02 23:25:27] [INFO] Epoch:  151 | Time:   8.1s | Val   Loss: 1.102637e-02 |
+[2025-06-02 23:31:02] [INFO] Epoch:  152 | Time: 334.7s | Train Loss: 1.709953e-02 | LR: 7.73e-05
+[2025-06-02 23:31:10] [INFO] Epoch:  152 | Time:   8.1s | Val   Loss: 1.087332e-02 |
+[2025-06-02 23:31:12] [INFO] [ best ] Checkpoint saved at epoch 152
+[2025-06-02 23:36:45] [INFO] Epoch:  153 | Time: 332.8s | Train Loss: 1.704589e-02 | LR: 7.69e-05
+[2025-06-02 23:36:53] [INFO] Epoch:  153 | Time:   8.0s | Val   Loss: 1.074315e-02 |
+[2025-06-02 23:36:54] [INFO] [ best ] Checkpoint saved at epoch 153
+[2025-06-02 23:42:26] [INFO] Epoch:  154 | Time: 332.3s | Train Loss: 1.719128e-02 | LR: 7.65e-05
+[2025-06-02 23:42:34] [INFO] Epoch:  154 | Time:   8.1s | Val   Loss: 1.120263e-02 |
+[2025-06-02 23:48:11] [INFO] Epoch:  155 | Time: 336.6s | Train Loss: 1.702288e-02 | LR: 7.61e-05
+[2025-06-02 23:48:19] [INFO] Epoch:  155 | Time:   8.1s | Val   Loss: 1.072889e-02 |
+[2025-06-02 23:48:21] [INFO] [ best ] Checkpoint saved at epoch 155
+[2025-06-02 23:53:54] [INFO] Epoch:  156 | Time: 332.8s | Train Loss: 1.681256e-02 | LR: 7.58e-05
+[2025-06-02 23:54:02] [INFO] Epoch:  156 | Time:   8.1s | Val   Loss: 1.078267e-02 |
+[2025-06-02 23:59:36] [INFO] Epoch:  157 | Time: 334.2s | Train Loss: 1.683950e-02 | LR: 7.54e-05
+[2025-06-02 23:59:44] [INFO] Epoch:  157 | Time:   8.1s | Val   Loss: 1.066860e-02 |
+[2025-06-02 23:59:45] [INFO] [ best ] Checkpoint saved at epoch 157
+[2025-06-03 00:05:19] [INFO] Epoch:  158 | Time: 333.7s | Train Loss: 1.673151e-02 | LR: 7.50e-05
+[2025-06-03 00:05:27] [INFO] Epoch:  158 | Time:   7.9s | Val   Loss: 1.080213e-02 |
+[2025-06-03 00:11:02] [INFO] Epoch:  159 | Time: 335.0s | Train Loss: 1.677561e-02 | LR: 7.46e-05
+[2025-06-03 00:11:10] [INFO] Epoch:  159 | Time:   8.0s | Val   Loss: 1.100645e-02 |
+[2025-06-03 00:16:44] [INFO] Epoch:  160 | Time: 333.8s | Train Loss: 1.664333e-02 | LR: 7.42e-05
+[2025-06-03 00:16:52] [INFO] Epoch:  160 | Time:   8.0s | Val   Loss: 1.107603e-02 |
+[2025-06-03 00:22:26] [INFO] Epoch:  161 | Time: 334.2s | Train Loss: 1.658745e-02 | LR: 7.38e-05
+[2025-06-03 00:22:34] [INFO] Epoch:  161 | Time:   8.0s | Val   Loss: 1.093995e-02 |
+[2025-06-03 00:28:13] [INFO] Epoch:  162 | Time: 338.3s | Train Loss: 1.646473e-02 | LR: 7.34e-05
+[2025-06-03 00:28:21] [INFO] Epoch:  162 | Time:   7.9s | Val   Loss: 1.075621e-02 |
+[2025-06-03 00:33:54] [INFO] Epoch:  163 | Time: 333.0s | Train Loss: 1.644094e-02 | LR: 7.30e-05
+[2025-06-03 00:34:02] [INFO] Epoch:  163 | Time:   8.1s | Val   Loss: 1.049191e-02 |
+[2025-06-03 00:34:04] [INFO] [ best ] Checkpoint saved at epoch 163
+[2025-06-03 00:39:39] [INFO] Epoch:  164 | Time: 334.9s | Train Loss: 1.647735e-02 | LR: 7.26e-05
+[2025-06-03 00:39:47] [INFO] Epoch:  164 | Time:   8.0s | Val   Loss: 1.044206e-02 |
+[2025-06-03 00:39:48] [INFO] [ best ] Checkpoint saved at epoch 164
+[2025-06-03 00:45:21] [INFO] Epoch:  165 | Time: 332.5s | Train Loss: 1.638667e-02 | LR: 7.22e-05
+[2025-06-03 00:45:29] [INFO] Epoch:  165 | Time:   8.1s | Val   Loss: 1.092612e-02 |
+[2025-06-03 00:51:02] [INFO] Epoch:  166 | Time: 333.5s | Train Loss: 1.636457e-02 | LR: 7.19e-05
+[2025-06-03 00:51:10] [INFO] Epoch:  166 | Time:   8.0s | Val   Loss: 1.089773e-02 |
+[2025-06-03 00:56:47] [INFO] Epoch:  167 | Time: 337.1s | Train Loss: 1.628418e-02 | LR: 7.15e-05
+[2025-06-03 00:56:55] [INFO] Epoch:  167 | Time:   8.0s | Val   Loss: 1.042639e-02 |
+[2025-06-03 00:56:57] [INFO] [ best ] Checkpoint saved at epoch 167
+[2025-06-03 01:02:31] [INFO] Epoch:  168 | Time: 333.6s | Train Loss: 1.610771e-02 | LR: 7.11e-05
+[2025-06-03 01:02:39] [INFO] Epoch:  168 | Time:   8.0s | Val   Loss: 1.054495e-02 |
+[2025-06-03 01:08:13] [INFO] Epoch:  169 | Time: 334.0s | Train Loss: 1.611889e-02 | LR: 7.07e-05
+[2025-06-03 01:08:21] [INFO] Epoch:  169 | Time:   8.1s | Val   Loss: 1.035481e-02 |
+[2025-06-03 01:08:22] [INFO] [ best ] Checkpoint saved at epoch 169
+[2025-06-03 01:13:55] [INFO] Epoch:  170 | Time: 333.1s | Train Loss: 1.613141e-02 | LR: 7.03e-05
+[2025-06-03 01:14:04] [INFO] Epoch:  170 | Time:   8.0s | Val   Loss: 1.056688e-02 |
+[2025-06-03 01:19:37] [INFO] Epoch:  171 | Time: 333.7s | Train Loss: 1.602776e-02 | LR: 6.98e-05
+[2025-06-03 01:19:45] [INFO] Epoch:  171 | Time:   8.1s | Val   Loss: 1.052782e-02 |
+[2025-06-03 01:25:18] [INFO] Epoch:  172 | Time: 332.8s | Train Loss: 1.606865e-02 | LR: 6.94e-05
+[2025-06-03 01:25:26] [INFO] Epoch:  172 | Time:   8.0s | Val   Loss: 1.054173e-02 |
+[2025-06-03 01:31:02] [INFO] Epoch:  173 | Time: 335.6s | Train Loss: 1.590414e-02 | LR: 6.90e-05
+[2025-06-03 01:31:10] [INFO] Epoch:  173 | Time:   8.1s | Val   Loss: 1.069821e-02 |
+[2025-06-03 01:36:46] [INFO] Epoch:  174 | Time: 335.5s | Train Loss: 1.593626e-02 | LR: 6.86e-05
+[2025-06-03 01:36:54] [INFO] Epoch:  174 | Time:   8.0s | Val   Loss: 1.024895e-02 |
+[2025-06-03 01:36:55] [INFO] [ best ] Checkpoint saved at epoch 174
+[2025-06-03 01:42:29] [INFO] Epoch:  175 | Time: 333.8s | Train Loss: 1.584339e-02 | LR: 6.82e-05
+[2025-06-03 01:42:37] [INFO] Epoch:  175 | Time:   7.9s | Val   Loss: 1.015087e-02 |
+[2025-06-03 01:42:38] [INFO] [ best ] Checkpoint saved at epoch 175
+[2025-06-03 01:48:12] [INFO] Epoch:  176 | Time: 333.8s | Train Loss: 1.577663e-02 | LR: 6.78e-05
+[2025-06-03 01:48:20] [INFO] Epoch:  176 | Time:   7.9s | Val   Loss: 1.032921e-02 |
+[2025-06-03 01:53:55] [INFO] Epoch:  177 | Time: 334.4s | Train Loss: 1.576674e-02 | LR: 6.74e-05
+[2025-06-03 01:54:03] [INFO] Epoch:  177 | Time:   7.9s | Val   Loss: 1.035583e-02 |
+[2025-06-03 01:59:40] [INFO] Epoch:  178 | Time: 337.3s | Train Loss: 1.563798e-02 | LR: 6.70e-05
+[2025-06-03 01:59:48] [INFO] Epoch:  178 | Time:   7.9s | Val   Loss: 1.032737e-02 |
+[2025-06-03 02:05:22] [INFO] Epoch:  179 | Time: 334.2s | Train Loss: 1.567288e-02 | LR: 6.66e-05
+[2025-06-03 02:05:30] [INFO] Epoch:  179 | Time:   7.9s | Val   Loss: 1.079547e-02 |
+[2025-06-03 02:11:04] [INFO] Epoch:  180 | Time: 334.1s | Train Loss: 1.562901e-02 | LR: 6.62e-05
+[2025-06-03 02:11:12] [INFO] Epoch:  180 | Time:   7.9s | Val   Loss: 1.039545e-02 |
+[2025-06-03 02:16:46] [INFO] Epoch:  181 | Time: 333.9s | Train Loss: 1.565572e-02 | LR: 6.57e-05
+[2025-06-03 02:16:54] [INFO] Epoch:  181 | Time:   8.0s | Val   Loss: 1.031676e-02 |
+[2025-06-03 02:22:28] [INFO] Epoch:  182 | Time: 333.2s | Train Loss: 1.552899e-02 | LR: 6.53e-05
+[2025-06-03 02:22:36] [INFO] Epoch:  182 | Time:   8.1s | Val   Loss: 1.006556e-02 |
+[2025-06-03 02:22:37] [INFO] [ best ] Checkpoint saved at epoch 182
+[2025-06-03 02:28:10] [INFO] Epoch:  183 | Time: 333.0s | Train Loss: 1.544088e-02 | LR: 6.49e-05
+[2025-06-03 02:28:18] [INFO] Epoch:  183 | Time:   7.9s | Val   Loss: 1.044638e-02 |
+[2025-06-03 02:33:54] [INFO] Epoch:  184 | Time: 335.7s | Train Loss: 1.547705e-02 | LR: 6.45e-05
+[2025-06-03 02:34:03] [INFO] Epoch:  184 | Time:   8.5s | Val   Loss: 1.022560e-02 |
+[2025-06-03 02:39:38] [INFO] Epoch:  185 | Time: 335.0s | Train Loss: 1.539432e-02 | LR: 6.41e-05
+[2025-06-03 02:39:46] [INFO] Epoch:  185 | Time:   7.9s | Val   Loss: 9.840418e-03 |
+[2025-06-03 02:39:48] [INFO] [ best ] Checkpoint saved at epoch 185
+[2025-06-03 02:45:21] [INFO] Epoch:  186 | Time: 333.2s | Train Loss: 1.530896e-02 | LR: 6.37e-05
+[2025-06-03 02:45:29] [INFO] Epoch:  186 | Time:   8.2s | Val   Loss: 1.015674e-02 |
+[2025-06-03 02:51:02] [INFO] Epoch:  187 | Time: 333.1s | Train Loss: 1.544433e-02 | LR: 6.32e-05
+[2025-06-03 02:51:10] [INFO] Epoch:  187 | Time:   7.9s | Val   Loss: 1.004299e-02 |
+[2025-06-03 02:56:43] [INFO] Epoch:  188 | Time: 333.2s | Train Loss: 1.534072e-02 | LR: 6.28e-05
+[2025-06-03 02:56:52] [INFO] Epoch:  188 | Time:   8.1s | Val   Loss: 1.017865e-02 |
+[2025-06-03 03:02:29] [INFO] Epoch:  189 | Time: 337.0s | Train Loss: 1.528109e-02 | LR: 6.24e-05
+[2025-06-03 03:02:37] [INFO] Epoch:  189 | Time:   7.8s | Val   Loss: 1.013089e-02 |
+[2025-06-03 03:08:10] [INFO] Epoch:  190 | Time: 333.5s | Train Loss: 1.517114e-02 | LR: 6.20e-05
+[2025-06-03 03:08:18] [INFO] Epoch:  190 | Time:   8.2s | Val   Loss: 1.016934e-02 |
+[2025-06-03 03:13:52] [INFO] Epoch:  191 | Time: 333.7s | Train Loss: 1.522858e-02 | LR: 6.15e-05
+[2025-06-03 03:14:00] [INFO] Epoch:  191 | Time:   8.1s | Val   Loss: 1.013568e-02 |
+[2025-06-03 03:19:34] [INFO] Epoch:  192 | Time: 333.7s | Train Loss: 1.511521e-02 | LR: 6.11e-05
+[2025-06-03 03:19:42] [INFO] Epoch:  192 | Time:   8.1s | Val   Loss: 1.006159e-02 |
+[2025-06-03 03:25:16] [INFO] Epoch:  193 | Time: 334.2s | Train Loss: 1.507843e-02 | LR: 6.07e-05
+[2025-06-03 03:25:24] [INFO] Epoch:  193 | Time:   8.0s | Val   Loss: 1.002966e-02 |
+[2025-06-03 03:30:58] [INFO] Epoch:  194 | Time: 334.0s | Train Loss: 1.505079e-02 | LR: 6.03e-05
+[2025-06-03 03:31:06] [INFO] Epoch:  194 | Time:   8.1s | Val   Loss: 1.003401e-02 |
+[2025-06-03 03:36:41] [INFO] Epoch:  195 | Time: 334.8s | Train Loss: 1.502158e-02 | LR: 5.98e-05
+[2025-06-03 03:36:49] [INFO] Epoch:  195 | Time:   8.1s | Val   Loss: 9.939597e-03 |
+[2025-06-03 03:42:23] [INFO] Epoch:  196 | Time: 334.1s | Train Loss: 1.499953e-02 | LR: 5.94e-05
+[2025-06-03 03:42:32] [INFO] Epoch:  196 | Time:   8.1s | Val   Loss: 1.011343e-02 |
+[2025-06-03 03:48:06] [INFO] Epoch:  197 | Time: 334.4s | Train Loss: 1.497832e-02 | LR: 5.90e-05
+[2025-06-03 03:48:14] [INFO] Epoch:  197 | Time:   8.2s | Val   Loss: 9.757564e-03 |
+[2025-06-03 03:48:17] [INFO] [ best ] Checkpoint saved at epoch 197
+[2025-06-03 03:53:50] [INFO] Epoch:  198 | Time: 333.3s | Train Loss: 1.487898e-02 | LR: 5.86e-05
+[2025-06-03 03:53:58] [INFO] Epoch:  198 | Time:   8.1s | Val   Loss: 1.004134e-02 |
+[2025-06-03 03:59:33] [INFO] Epoch:  199 | Time: 334.4s | Train Loss: 1.487463e-02 | LR: 5.81e-05
+[2025-06-03 03:59:41] [INFO] Epoch:  199 | Time:   8.1s | Val   Loss: 9.710042e-03 |
+[2025-06-03 03:59:42] [INFO] [ best ] Checkpoint saved at epoch 199
+[2025-06-03 04:05:15] [INFO] Epoch:  200 | Time: 333.1s | Train Loss: 1.488598e-02 | LR: 5.77e-05
+[2025-06-03 04:05:23] [INFO] Epoch:  200 | Time:   8.1s | Val   Loss: 9.885604e-03 |
+[2025-06-03 04:10:57] [INFO] Epoch:  201 | Time: 334.0s | Train Loss: 1.479334e-02 | LR: 5.73e-05
+[2025-06-03 04:11:05] [INFO] Epoch:  201 | Time:   8.0s | Val   Loss: 1.022565e-02 |
+[2025-06-03 04:16:39] [INFO] Epoch:  202 | Time: 333.3s | Train Loss: 1.474080e-02 | LR: 5.68e-05
+[2025-06-03 04:16:47] [INFO] Epoch:  202 | Time:   7.9s | Val   Loss: 9.920930e-03 |
+[2025-06-03 04:22:24] [INFO] Epoch:  203 | Time: 337.3s | Train Loss: 1.473608e-02 | LR: 5.64e-05
+[2025-06-03 04:22:32] [INFO] Epoch:  203 | Time:   8.0s | Val   Loss: 1.000489e-02 |
+[2025-06-03 04:28:07] [INFO] Epoch:  204 | Time: 334.7s | Train Loss: 1.469885e-02 | LR: 5.60e-05
+[2025-06-03 04:28:15] [INFO] Epoch:  204 | Time:   8.2s | Val   Loss: 9.956277e-03 |
+[2025-06-03 04:33:50] [INFO] Epoch:  205 | Time: 334.9s | Train Loss: 1.466186e-02 | LR: 5.56e-05
+[2025-06-03 04:33:58] [INFO] Epoch:  205 | Time:   7.9s | Val   Loss: 9.772278e-03 |
+[2025-06-03 04:39:33] [INFO] Epoch:  206 | Time: 335.1s | Train Loss: 1.458489e-02 | LR: 5.51e-05
+[2025-06-03 04:39:41] [INFO] Epoch:  206 | Time:   8.0s | Val   Loss: 1.000952e-02 |
+[2025-06-03 04:45:15] [INFO] Epoch:  207 | Time: 333.7s | Train Loss: 1.458799e-02 | LR: 5.47e-05
+[2025-06-03 04:45:23] [INFO] Epoch:  207 | Time:   8.1s | Val   Loss: 9.925425e-03 |
+[2025-06-03 04:50:56] [INFO] Epoch:  208 | Time: 332.9s | Train Loss: 1.463751e-02 | LR: 5.43e-05
+[2025-06-03 04:51:04] [INFO] Epoch:  208 | Time:   8.1s | Val   Loss: 9.798668e-03 |
+[2025-06-03 04:56:40] [INFO] Epoch:  209 | Time: 336.1s | Train Loss: 1.460990e-02 | LR: 5.38e-05
+[2025-06-03 04:56:48] [INFO] Epoch:  209 | Time:   8.1s | Val   Loss: 9.899111e-03 |
+[2025-06-03 05:02:21] [INFO] Epoch:  210 | Time: 333.1s | Train Loss: 1.449346e-02 | LR: 5.34e-05
+[2025-06-03 05:02:30] [INFO] Epoch:  210 | Time:   8.1s | Val   Loss: 9.576154e-03 |
+[2025-06-03 05:02:32] [INFO] [ best ] Checkpoint saved at epoch 210
+[2025-06-03 05:08:05] [INFO] Epoch:  211 | Time: 333.5s | Train Loss: 1.443052e-02 | LR: 5.30e-05
+[2025-06-03 05:08:13] [INFO] Epoch:  211 | Time:   8.2s | Val   Loss: 9.874078e-03 |
+[2025-06-03 05:13:49] [INFO] Epoch:  212 | Time: 335.1s | Train Loss: 1.444650e-02 | LR: 5.26e-05
+[2025-06-03 05:13:57] [INFO] Epoch:  212 | Time:   8.1s | Val   Loss: 9.748353e-03 |
+[2025-06-03 05:19:30] [INFO] Epoch:  213 | Time: 332.9s | Train Loss: 1.449155e-02 | LR: 5.21e-05
+[2025-06-03 05:19:38] [INFO] Epoch:  213 | Time:   8.0s | Val   Loss: 9.638324e-03 |
+[2025-06-03 05:25:11] [INFO] Epoch:  214 | Time: 333.4s | Train Loss: 1.435174e-02 | LR: 5.17e-05
+[2025-06-03 05:25:19] [INFO] Epoch:  214 | Time:   8.1s | Val   Loss: 9.736149e-03 |
+[2025-06-03 05:30:55] [INFO] Epoch:  215 | Time: 335.9s | Train Loss: 1.434579e-02 | LR: 5.13e-05
+[2025-06-03 05:31:03] [INFO] Epoch:  215 | Time:   8.0s | Val   Loss: 9.888872e-03 |
+[2025-06-03 05:36:38] [INFO] Epoch:  216 | Time: 334.3s | Train Loss: 1.428729e-02 | LR: 5.09e-05
+[2025-06-03 05:36:46] [INFO] Epoch:  216 | Time:   7.9s | Val   Loss: 9.904442e-03 |
+[2025-06-03 05:42:20] [INFO] Epoch:  217 | Time: 334.3s | Train Loss: 1.429172e-02 | LR: 5.04e-05
+[2025-06-03 05:42:28] [INFO] Epoch:  217 | Time:   8.1s | Val   Loss: 9.552418e-03 |
+[2025-06-03 05:42:30] [INFO] [ best ] Checkpoint saved at epoch 217
+[2025-06-03 05:48:03] [INFO] Epoch:  218 | Time: 332.7s | Train Loss: 1.423686e-02 | LR: 5.00e-05
+[2025-06-03 05:48:11] [INFO] Epoch:  218 | Time:   8.0s | Val   Loss: 9.708388e-03 |
+[2025-06-03 05:53:45] [INFO] Epoch:  219 | Time: 333.8s | Train Loss: 1.415881e-02 | LR: 4.96e-05
+[2025-06-03 05:53:53] [INFO] Epoch:  219 | Time:   8.0s | Val   Loss: 9.718236e-03 |
+[2025-06-03 05:59:29] [INFO] Epoch:  220 | Time: 336.1s | Train Loss: 1.413976e-02 | LR: 4.92e-05
+[2025-06-03 05:59:37] [INFO] Epoch:  220 | Time:   8.1s | Val   Loss: 9.767385e-03 |
+[2025-06-03 06:05:11] [INFO] Epoch:  221 | Time: 334.3s | Train Loss: 1.413118e-02 | LR: 4.87e-05
+[2025-06-03 06:05:19] [INFO] Epoch:  221 | Time:   8.1s | Val   Loss: 9.690163e-03 |
+[2025-06-03 06:10:53] [INFO] Epoch:  222 | Time: 333.3s | Train Loss: 1.419169e-02 | LR: 4.83e-05
+[2025-06-03 06:11:01] [INFO] Epoch:  222 | Time:   7.8s | Val   Loss: 1.006557e-02 |
+[2025-06-03 06:16:36] [INFO] Epoch:  223 | Time: 334.9s | Train Loss: 1.414589e-02 | LR: 4.79e-05
+[2025-06-03 06:16:44] [INFO] Epoch:  223 | Time:   7.9s | Val   Loss: 9.831424e-03 |
+[2025-06-03 06:22:18] [INFO] Epoch:  224 | Time: 334.3s | Train Loss: 1.415366e-02 | LR: 4.75e-05
+[2025-06-03 06:22:26] [INFO] Epoch:  224 | Time:   8.0s | Val   Loss: 1.012427e-02 |
+[2025-06-03 06:28:01] [INFO] Epoch:  225 | Time: 335.0s | Train Loss: 1.401129e-02 | LR: 4.70e-05
+[2025-06-03 06:28:09] [INFO] Epoch:  225 | Time:   8.0s | Val   Loss: 9.569542e-03 |
+[2025-06-03 06:33:46] [INFO] Epoch:  226 | Time: 336.6s | Train Loss: 1.398815e-02 | LR: 4.66e-05
+[2025-06-03 06:33:54] [INFO] Epoch:  226 | Time:   8.2s | Val   Loss: 9.751420e-03 |
+[2025-06-03 06:39:28] [INFO] Epoch:  227 | Time: 334.1s | Train Loss: 1.401327e-02 | LR: 4.62e-05
+[2025-06-03 06:39:36] [INFO] Epoch:  227 | Time:   8.0s | Val   Loss: 9.503518e-03 |
+[2025-06-03 06:39:38] [INFO] [ best ] Checkpoint saved at epoch 227
+[2025-06-03 06:45:11] [INFO] Epoch:  228 | Time: 332.8s | Train Loss: 1.399131e-02 | LR: 4.58e-05
+[2025-06-03 06:45:19] [INFO] Epoch:  228 | Time:   8.1s | Val   Loss: 9.405322e-03 |
+[2025-06-03 06:45:20] [INFO] [ best ] Checkpoint saved at epoch 228
+[2025-06-03 06:50:53] [INFO] Epoch:  229 | Time: 333.1s | Train Loss: 1.395247e-02 | LR: 4.54e-05
+[2025-06-03 06:51:01] [INFO] Epoch:  229 | Time:   8.0s | Val   Loss: 9.537357e-03 |
+[2025-06-03 06:56:35] [INFO] Epoch:  230 | Time: 334.0s | Train Loss: 1.389580e-02 | LR: 4.49e-05
+[2025-06-03 06:56:43] [INFO] Epoch:  230 | Time:   8.0s | Val   Loss: 9.644873e-03 |
+[2025-06-03 07:02:17] [INFO] Epoch:  231 | Time: 333.6s | Train Loss: 1.388119e-02 | LR: 4.45e-05
+[2025-06-03 07:02:25] [INFO] Epoch:  231 | Time:   8.3s | Val   Loss: 9.661758e-03 |
+[2025-06-03 07:08:01] [INFO] Epoch:  232 | Time: 335.6s | Train Loss: 1.384179e-02 | LR: 4.41e-05
+[2025-06-03 07:08:09] [INFO] Epoch:  232 | Time:   8.0s | Val   Loss: 9.538539e-03 |
+[2025-06-03 07:13:43] [INFO] Epoch:  233 | Time: 334.1s | Train Loss: 1.384054e-02 | LR: 4.37e-05
+[2025-06-03 07:13:51] [INFO] Epoch:  233 | Time:   8.1s | Val   Loss: 9.612881e-03 |
+[2025-06-03 07:19:24] [INFO] Epoch:  234 | Time: 332.7s | Train Loss: 1.383661e-02 | LR: 4.33e-05
+[2025-06-03 07:19:32] [INFO] Epoch:  234 | Time:   8.1s | Val   Loss: 9.569912e-03 |
+[2025-06-03 07:25:06] [INFO] Epoch:  235 | Time: 334.6s | Train Loss: 1.378416e-02 | LR: 4.29e-05
+[2025-06-03 07:25:15] [INFO] Epoch:  235 | Time:   8.0s | Val   Loss: 9.396236e-03 |
+[2025-06-03 07:25:16] [INFO] [ best ] Checkpoint saved at epoch 235
+[2025-06-03 07:30:49] [INFO] Epoch:  236 | Time: 332.9s | Train Loss: 1.372957e-02 | LR: 4.24e-05
+[2025-06-03 07:30:57] [INFO] Epoch:  236 | Time:   8.2s | Val   Loss: 9.471742e-03 |
+[2025-06-03 07:36:33] [INFO] Epoch:  237 | Time: 336.0s | Train Loss: 1.376387e-02 | LR: 4.20e-05
+[2025-06-03 07:36:42] [INFO] Epoch:  237 | Time:   8.7s | Val   Loss: 9.653767e-03 |
+[2025-06-03 07:42:18] [INFO] Epoch:  238 | Time: 336.2s | Train Loss: 1.372044e-02 | LR: 4.16e-05
+[2025-06-03 07:42:26] [INFO] Epoch:  238 | Time:   8.0s | Val   Loss: 9.590898e-03 |
+[2025-06-03 07:48:00] [INFO] Epoch:  239 | Time: 334.1s | Train Loss: 1.371238e-02 | LR: 4.12e-05
+[2025-06-03 07:48:08] [INFO] Epoch:  239 | Time:   8.0s | Val   Loss: 9.696517e-03 |
+[2025-06-03 07:53:43] [INFO] Epoch:  240 | Time: 334.2s | Train Loss: 1.364353e-02 | LR: 4.08e-05
+[2025-06-03 07:53:51] [INFO] Epoch:  240 | Time:   8.0s | Val   Loss: 9.384335e-03 |
+[2025-06-03 07:53:53] [INFO] [ best ] Checkpoint saved at epoch 240
+[2025-06-03 07:59:26] [INFO] Epoch:  241 | Time: 332.8s | Train Loss: 1.366517e-02 | LR: 4.04e-05
+[2025-06-03 07:59:34] [INFO] Epoch:  241 | Time:   7.9s | Val   Loss: 9.503113e-03 |
+[2025-06-03 08:05:08] [INFO] Epoch:  242 | Time: 334.2s | Train Loss: 1.364520e-02 | LR: 4.00e-05
+[2025-06-03 08:05:16] [INFO] Epoch:  242 | Time:   8.0s | Val   Loss: 9.202858e-03 |
+[2025-06-03 08:05:18] [INFO] [ best ] Checkpoint saved at epoch 242
+[2025-06-03 08:10:51] [INFO] Epoch:  243 | Time: 333.7s | Train Loss: 1.358783e-02 | LR: 3.96e-05
+[2025-06-03 08:11:00] [INFO] Epoch:  243 | Time:   8.1s | Val   Loss: 9.747225e-03 |
+[2025-06-03 08:16:34] [INFO] Epoch:  244 | Time: 334.5s | Train Loss: 1.355322e-02 | LR: 3.92e-05
+[2025-06-03 08:16:42] [INFO] Epoch:  244 | Time:   8.1s | Val   Loss: 9.755319e-03 |
+[2025-06-03 08:22:16] [INFO] Epoch:  245 | Time: 333.8s | Train Loss: 1.352861e-02 | LR: 3.88e-05
+[2025-06-03 08:22:24] [INFO] Epoch:  245 | Time:   8.1s | Val   Loss: 9.626727e-03 |
+[2025-06-03 08:27:57] [INFO] Epoch:  246 | Time: 333.2s | Train Loss: 1.354278e-02 | LR: 3.84e-05
+[2025-06-03 08:28:05] [INFO] Epoch:  246 | Time:   8.1s | Val   Loss: 9.618812e-03 |
+[2025-06-03 08:33:42] [INFO] Epoch:  247 | Time: 336.5s | Train Loss: 1.350519e-02 | LR: 3.80e-05
+[2025-06-03 08:33:50] [INFO] Epoch:  247 | Time:   8.0s | Val   Loss: 9.376826e-03 |
+[2025-06-03 08:39:24] [INFO] Epoch:  248 | Time: 333.6s | Train Loss: 1.350434e-02 | LR: 3.76e-05
+[2025-06-03 08:39:32] [INFO] Epoch:  248 | Time:   8.2s | Val   Loss: 9.453696e-03 |
+[2025-06-03 08:45:10] [INFO] Epoch:  249 | Time: 337.6s | Train Loss: 1.346740e-02 | LR: 3.72e-05
+[2025-06-03 08:45:18] [INFO] Epoch:  249 | Time:   7.9s | Val   Loss: 9.452094e-03 |
+[2025-06-03 08:50:52] [INFO] Epoch:  250 | Time: 334.2s | Train Loss: 1.341201e-02 | LR: 3.68e-05
+[2025-06-03 08:51:00] [INFO] Epoch:  250 | Time:   8.1s | Val   Loss: 9.308383e-03 |
+[2025-06-03 08:56:35] [INFO] Epoch:  251 | Time: 334.9s | Train Loss: 1.350581e-02 | LR: 3.64e-05
+[2025-06-03 08:56:43] [INFO] Epoch:  251 | Time:   8.1s | Val   Loss: 9.259602e-03 |
+[2025-06-03 09:02:17] [INFO] Epoch:  252 | Time: 334.2s | Train Loss: 1.336797e-02 | LR: 3.60e-05
+[2025-06-03 09:02:25] [INFO] Epoch:  252 | Time:   8.1s | Val   Loss: 9.438738e-03 |
+[2025-06-03 09:08:02] [INFO] Epoch:  253 | Time: 336.3s | Train Loss: 1.336483e-02 | LR: 3.56e-05
+[2025-06-03 09:08:10] [INFO] Epoch:  253 | Time:   8.0s | Val   Loss: 9.336314e-03 |
+[2025-06-03 09:13:44] [INFO] Epoch:  254 | Time: 333.9s | Train Loss: 1.330902e-02 | LR: 3.52e-05
+[2025-06-03 09:13:52] [INFO] Epoch:  254 | Time:   7.9s | Val   Loss: 9.269828e-03 |
+[2025-06-03 09:19:26] [INFO] Epoch:  255 | Time: 334.5s | Train Loss: 1.338672e-02 | LR: 3.49e-05
+[2025-06-03 09:19:34] [INFO] Epoch:  255 | Time:   7.9s | Val   Loss: 9.365846e-03 |
+[2025-06-03 09:25:08] [INFO] Epoch:  256 | Time: 333.6s | Train Loss: 1.334745e-02 | LR: 3.45e-05
+[2025-06-03 09:25:16] [INFO] Epoch:  256 | Time:   8.1s | Val   Loss: 9.290260e-03 |
+[2025-06-03 09:30:49] [INFO] Epoch:  257 | Time: 333.1s | Train Loss: 1.328227e-02 | LR: 3.41e-05
+[2025-06-03 09:30:57] [INFO] Epoch:  257 | Time:   8.2s | Val   Loss: 9.368128e-03 |
+[2025-06-03 09:36:33] [INFO] Epoch:  258 | Time: 335.4s | Train Loss: 1.326451e-02 | LR: 3.37e-05
+[2025-06-03 09:36:41] [INFO] Epoch:  258 | Time:   8.0s | Val   Loss: 9.342761e-03 |
+[2025-06-03 09:42:15] [INFO] Epoch:  259 | Time: 334.2s | Train Loss: 1.326663e-02 | LR: 3.33e-05
+[2025-06-03 09:42:23] [INFO] Epoch:  259 | Time:   7.9s | Val   Loss: 9.307375e-03 |
+[2025-06-03 09:48:08] [INFO] Epoch:  260 | Time: 345.0s | Train Loss: 1.327280e-02 | LR: 3.30e-05
+[2025-06-03 09:48:16] [INFO] Epoch:  260 | Time:   8.0s | Val   Loss: 9.324960e-03 |
+[2025-06-03 09:53:51] [INFO] Epoch:  261 | Time: 334.9s | Train Loss: 1.321845e-02 | LR: 3.26e-05
+[2025-06-03 09:53:59] [INFO] Epoch:  261 | Time:   7.9s | Val   Loss: 9.396217e-03 |
+[2025-06-03 09:59:34] [INFO] Epoch:  262 | Time: 334.6s | Train Loss: 1.320600e-02 | LR: 3.22e-05
+[2025-06-03 09:59:42] [INFO] Epoch:  262 | Time:   8.1s | Val   Loss: 9.343599e-03 |
+[2025-06-03 10:05:16] [INFO] Epoch:  263 | Time: 333.1s | Train Loss: 1.320301e-02 | LR: 3.19e-05
+[2025-06-03 10:05:24] [INFO] Epoch:  263 | Time:   7.9s | Val   Loss: 9.349284e-03 |
+[2025-06-03 10:10:57] [INFO] Epoch:  264 | Time: 333.4s | Train Loss: 1.320659e-02 | LR: 3.15e-05
+[2025-06-03 10:11:05] [INFO] Epoch:  264 | Time:   7.9s | Val   Loss: 9.350491e-03 |
+[2025-06-03 10:16:38] [INFO] Epoch:  265 | Time: 333.2s | Train Loss: 1.319003e-02 | LR: 3.11e-05
+[2025-06-03 10:16:46] [INFO] Epoch:  265 | Time:   8.1s | Val   Loss: 9.433588e-03 |
+[2025-06-03 10:22:20] [INFO] Epoch:  266 | Time: 333.8s | Train Loss: 1.313979e-02 | LR: 3.08e-05
+[2025-06-03 10:22:28] [INFO] Epoch:  266 | Time:   8.0s | Val   Loss: 9.488008e-03 |
+[2025-06-03 10:28:02] [INFO] Epoch:  267 | Time: 333.2s | Train Loss: 1.315016e-02 | LR: 3.04e-05
+[2025-06-03 10:28:10] [INFO] Epoch:  267 | Time:   7.9s | Val   Loss: 9.253762e-03 |
+[2025-06-03 10:33:45] [INFO] Epoch:  268 | Time: 334.9s | Train Loss: 1.309135e-02 | LR: 3.01e-05
+[2025-06-03 10:33:53] [INFO] Epoch:  268 | Time:   7.9s | Val   Loss: 9.247793e-03 |
+[2025-06-03 10:39:27] [INFO] Epoch:  269 | Time: 334.1s | Train Loss: 1.310368e-02 | LR: 2.97e-05
+[2025-06-03 10:39:35] [INFO] Epoch:  269 | Time:   8.0s | Val   Loss: 9.314984e-03 |
+[2025-06-03 10:45:09] [INFO] Epoch:  270 | Time: 334.5s | Train Loss: 1.303868e-02 | LR: 2.93e-05
+[2025-06-03 10:45:17] [INFO] Epoch:  270 | Time:   8.1s | Val   Loss: 9.443976e-03 |
+[2025-06-03 10:50:55] [INFO] Epoch:  271 | Time: 337.8s | Train Loss: 1.302030e-02 | LR: 2.90e-05
+[2025-06-03 10:51:03] [INFO] Epoch:  271 | Time:   7.9s | Val   Loss: 9.304062e-03 |
+[2025-06-03 10:56:37] [INFO] Epoch:  272 | Time: 333.9s | Train Loss: 1.305419e-02 | LR: 2.86e-05
+[2025-06-03 10:56:45] [INFO] Epoch:  272 | Time:   7.8s | Val   Loss: 9.135090e-03 |
+[2025-06-03 10:56:48] [INFO] [ best ] Checkpoint saved at epoch 272
+[2025-06-03 11:02:21] [INFO] Epoch:  273 | Time: 333.2s | Train Loss: 1.303079e-02 | LR: 2.83e-05
+[2025-06-03 11:02:29] [INFO] Epoch:  273 | Time:   8.1s | Val   Loss: 9.231765e-03 |
+[2025-06-03 11:08:04] [INFO] Epoch:  274 | Time: 335.0s | Train Loss: 1.300010e-02 | LR: 2.80e-05
+[2025-06-03 11:08:12] [INFO] Epoch:  274 | Time:   8.1s | Val   Loss: 9.433501e-03 |
+[2025-06-03 11:13:50] [INFO] Epoch:  275 | Time: 337.6s | Train Loss: 1.298524e-02 | LR: 2.76e-05
+[2025-06-03 11:13:58] [INFO] Epoch:  275 | Time:   8.0s | Val   Loss: 9.302246e-03 |
+[2025-06-03 11:19:32] [INFO] Epoch:  276 | Time: 333.6s | Train Loss: 1.290873e-02 | LR: 2.73e-05
+[2025-06-03 11:19:40] [INFO] Epoch:  276 | Time:   8.1s | Val   Loss: 9.323536e-03 |
+[2025-06-03 11:25:14] [INFO] Epoch:  277 | Time: 334.2s | Train Loss: 1.298996e-02 | LR: 2.69e-05
+[2025-06-03 11:25:22] [INFO] Epoch:  277 | Time:   8.2s | Val   Loss: 9.512858e-03 |
+[2025-06-03 11:30:56] [INFO] Epoch:  278 | Time: 333.5s | Train Loss: 1.291607e-02 | LR: 2.66e-05
+[2025-06-03 11:31:04] [INFO] Epoch:  278 | Time:   8.1s | Val   Loss: 9.590423e-03 |
+[2025-06-03 11:36:38] [INFO] Epoch:  279 | Time: 333.8s | Train Loss: 1.292358e-02 | LR: 2.63e-05
+[2025-06-03 11:36:46] [INFO] Epoch:  279 | Time:   8.2s | Val   Loss: 9.438252e-03 |
+[2025-06-03 11:42:19] [INFO] Epoch:  280 | Time: 332.8s | Train Loss: 1.290772e-02 | LR: 2.59e-05
+[2025-06-03 11:42:27] [INFO] Epoch:  280 | Time:   7.8s | Val   Loss: 9.310548e-03 |
+[2025-06-03 11:48:01] [INFO] Epoch:  281 | Time: 334.6s | Train Loss: 1.288872e-02 | LR: 2.56e-05
+[2025-06-03 11:48:09] [INFO] Epoch:  281 | Time:   8.0s | Val   Loss: 9.445601e-03 |
+[2025-06-03 11:53:43] [INFO] Epoch:  282 | Time: 333.5s | Train Loss: 1.293334e-02 | LR: 2.53e-05
+[2025-06-03 11:53:51] [INFO] Epoch:  282 | Time:   8.0s | Val   Loss: 9.377734e-03 |
+[2025-06-03 11:59:25] [INFO] Epoch:  283 | Time: 334.2s | Train Loss: 1.285550e-02 | LR: 2.50e-05
+[2025-06-03 11:59:33] [INFO] Epoch:  283 | Time:   8.0s | Val   Loss: 9.390385e-03 |
+[2025-06-03 12:05:09] [INFO] Epoch:  284 | Time: 335.6s | Train Loss: 1.282917e-02 | LR: 2.47e-05
+[2025-06-03 12:05:17] [INFO] Epoch:  284 | Time:   8.1s | Val   Loss: 9.334946e-03 |
+[2025-06-03 12:10:52] [INFO] Epoch:  285 | Time: 335.4s | Train Loss: 1.279448e-02 | LR: 2.43e-05
+[2025-06-03 12:11:00] [INFO] Epoch:  285 | Time:   7.9s | Val   Loss: 9.441392e-03 |
+[2025-06-03 12:16:34] [INFO] Epoch:  286 | Time: 334.0s | Train Loss: 1.284063e-02 | LR: 2.40e-05
+[2025-06-03 12:16:43] [INFO] Epoch:  286 | Time:   8.0s | Val   Loss: 9.286599e-03 |
+[2025-06-03 12:22:16] [INFO] Epoch:  287 | Time: 333.8s | Train Loss: 1.281043e-02 | LR: 2.37e-05
+[2025-06-03 12:22:25] [INFO] Epoch:  287 | Time:   8.0s | Val   Loss: 9.445388e-03 |
+[2025-06-03 12:27:58] [INFO] Epoch:  288 | Time: 333.7s | Train Loss: 1.280139e-02 | LR: 2.34e-05
+[2025-06-03 12:28:06] [INFO] Epoch:  288 | Time:   8.1s | Val   Loss: 9.274552e-03 |
+[2025-06-03 12:33:50] [INFO] Epoch:  289 | Time: 343.2s | Train Loss: 1.277966e-02 | LR: 2.31e-05
+[2025-06-03 12:33:58] [INFO] Epoch:  289 | Time:   8.0s | Val   Loss: 9.208603e-03 |
+[2025-06-03 12:39:31] [INFO] Epoch:  290 | Time: 333.6s | Train Loss: 1.278260e-02 | LR: 2.28e-05
+[2025-06-03 12:39:40] [INFO] Epoch:  290 | Time:   8.0s | Val   Loss: 9.364154e-03 |
+[2025-06-03 12:45:14] [INFO] Epoch:  291 | Time: 334.3s | Train Loss: 1.276630e-02 | LR: 2.25e-05
+[2025-06-03 12:45:22] [INFO] Epoch:  291 | Time:   8.1s | Val   Loss: 9.259614e-03 |
+[2025-06-03 12:50:55] [INFO] Epoch:  292 | Time: 333.5s | Train Loss: 1.275400e-02 | LR: 2.22e-05
+[2025-06-03 12:51:04] [INFO] Epoch:  292 | Time:   8.1s | Val   Loss: 9.021900e-03 |
+[2025-06-03 12:51:06] [INFO] [ best ] Checkpoint saved at epoch 292
+[2025-06-03 12:56:39] [INFO] Epoch:  293 | Time: 333.4s | Train Loss: 1.269369e-02 | LR: 2.19e-05
+[2025-06-03 12:56:48] [INFO] Epoch:  293 | Time:   8.0s | Val   Loss: 9.378466e-03 |
+[2025-06-03 13:02:21] [INFO] Epoch:  294 | Time: 333.8s | Train Loss: 1.273070e-02 | LR: 2.16e-05
+[2025-06-03 13:02:29] [INFO] Epoch:  294 | Time:   8.1s | Val   Loss: 9.254151e-03 |
+[2025-06-03 13:08:03] [INFO] Epoch:  295 | Time: 333.5s | Train Loss: 1.269377e-02 | LR: 2.13e-05
+[2025-06-03 13:08:11] [INFO] Epoch:  295 | Time:   8.0s | Val   Loss: 9.181527e-03 |
+[2025-06-03 13:13:46] [INFO] Epoch:  296 | Time: 334.7s | Train Loss: 1.267713e-02 | LR: 2.11e-05
+[2025-06-03 13:13:54] [INFO] Epoch:  296 | Time:   8.0s | Val   Loss: 9.294918e-03 |
+[2025-06-03 13:19:28] [INFO] Epoch:  297 | Time: 333.9s | Train Loss: 1.264130e-02 | LR: 2.08e-05
+[2025-06-03 13:19:36] [INFO] Epoch:  297 | Time:   8.0s | Val   Loss: 9.331954e-03 |
+[2025-06-03 13:25:09] [INFO] Epoch:  298 | Time: 333.6s | Train Loss: 1.268261e-02 | LR: 2.05e-05
+[2025-06-03 13:25:18] [INFO] Epoch:  298 | Time:   8.1s | Val   Loss: 9.084719e-03 |
+[2025-06-03 13:30:52] [INFO] Epoch:  299 | Time: 334.2s | Train Loss: 1.267850e-02 | LR: 2.02e-05
+[2025-06-03 13:31:00] [INFO] Epoch:  299 | Time:   8.0s | Val   Loss: 9.419814e-03 |
+[2025-06-03 13:36:34] [INFO] Epoch:  300 | Time: 334.2s | Train Loss: 1.263525e-02 | LR: 2.00e-05
+[2025-06-03 13:36:42] [INFO] Epoch:  300 | Time:   8.0s | Val   Loss: 9.127036e-03 |
+[2025-06-03 13:42:17] [INFO] Epoch:  301 | Time: 334.3s | Train Loss: 1.264253e-02 | LR: 1.97e-05
+[2025-06-03 13:42:25] [INFO] Epoch:  301 | Time:   8.0s | Val   Loss: 9.054536e-03 |
+[2025-06-03 13:48:00] [INFO] Epoch:  302 | Time: 335.0s | Train Loss: 1.263533e-02 | LR: 1.94e-05
+[2025-06-03 13:48:08] [INFO] Epoch:  302 | Time:   8.1s | Val   Loss: 9.422248e-03 |
+[2025-06-03 13:53:46] [INFO] Epoch:  303 | Time: 337.2s | Train Loss: 1.262225e-02 | LR: 1.92e-05
+[2025-06-03 13:53:54] [INFO] Epoch:  303 | Time:   8.5s | Val   Loss: 9.340398e-03 |
+[2025-06-03 13:59:28] [INFO] Epoch:  304 | Time: 334.2s | Train Loss: 1.257766e-02 | LR: 1.89e-05
+[2025-06-03 13:59:36] [INFO] Epoch:  304 | Time:   8.0s | Val   Loss: 9.313254e-03 |
+[2025-06-03 14:05:10] [INFO] Epoch:  305 | Time: 333.8s | Train Loss: 1.260553e-02 | LR: 1.86e-05
+[2025-06-03 14:05:18] [INFO] Epoch:  305 | Time:   8.1s | Val   Loss: 9.444129e-03 |
+[2025-06-03 14:10:51] [INFO] Epoch:  306 | Time: 333.3s | Train Loss: 1.259959e-02 | LR: 1.84e-05
+[2025-06-03 14:11:00] [INFO] Epoch:  306 | Time:   8.1s | Val   Loss: 9.221415e-03 |
+[2025-06-03 14:16:34] [INFO] Epoch:  307 | Time: 334.0s | Train Loss: 1.259245e-02 | LR: 1.81e-05
+[2025-06-03 14:16:42] [INFO] Epoch:  307 | Time:   8.0s | Val   Loss: 9.157073e-03 |
+[2025-06-03 14:22:15] [INFO] Epoch:  308 | Time: 333.2s | Train Loss: 1.256405e-02 | LR: 1.79e-05
+[2025-06-03 14:22:23] [INFO] Epoch:  308 | Time:   8.0s | Val   Loss: 9.312657e-03 |
+[2025-06-03 14:27:57] [INFO] Epoch:  309 | Time: 334.2s | Train Loss: 1.254141e-02 | LR: 1.77e-05
+[2025-06-03 14:28:05] [INFO] Epoch:  309 | Time:   7.9s | Val   Loss: 9.565141e-03 |
+[2025-06-03 14:33:48] [INFO] Epoch:  310 | Time: 342.6s | Train Loss: 1.255922e-02 | LR: 1.74e-05
+[2025-06-03 14:33:56] [INFO] Epoch:  310 | Time:   8.0s | Val   Loss: 9.343551e-03 |
+[2025-06-03 14:39:31] [INFO] Epoch:  311 | Time: 334.5s | Train Loss: 1.253747e-02 | LR: 1.72e-05
+[2025-06-03 14:39:39] [INFO] Epoch:  311 | Time:   7.9s | Val   Loss: 9.172992e-03 |
+[2025-06-03 14:45:13] [INFO] Epoch:  312 | Time: 333.9s | Train Loss: 1.252333e-02 | LR: 1.70e-05
+[2025-06-03 14:45:21] [INFO] Epoch:  312 | Time:   7.9s | Val   Loss: 9.158854e-03 |
+[2025-06-03 14:50:56] [INFO] Epoch:  313 | Time: 335.4s | Train Loss: 1.252710e-02 | LR: 1.67e-05
+[2025-06-03 14:51:04] [INFO] Epoch:  313 | Time:   8.1s | Val   Loss: 9.267280e-03 |
+[2025-06-03 14:56:37] [INFO] Epoch:  314 | Time: 333.4s | Train Loss: 1.247273e-02 | LR: 1.65e-05
+[2025-06-03 14:56:45] [INFO] Epoch:  314 | Time:   8.0s | Val   Loss: 9.370075e-03 |
+[2025-06-03 15:02:19] [INFO] Epoch:  315 | Time: 333.8s | Train Loss: 1.244227e-02 | LR: 1.63e-05
+[2025-06-03 15:02:27] [INFO] Epoch:  315 | Time:   8.0s | Val   Loss: 9.433868e-03 |
+[2025-06-03 15:08:01] [INFO] Epoch:  316 | Time: 333.8s | Train Loss: 1.251916e-02 | LR: 1.61e-05
+[2025-06-03 15:08:09] [INFO] Epoch:  316 | Time:   8.1s | Val   Loss: 9.229288e-03 |
+[2025-06-03 15:13:43] [INFO] Epoch:  317 | Time: 334.1s | Train Loss: 1.248293e-02 | LR: 1.59e-05
+[2025-06-03 15:13:51] [INFO] Epoch:  317 | Time:   8.0s | Val   Loss: 9.514389e-03 |
+[2025-06-03 15:19:25] [INFO] Epoch:  318 | Time: 333.8s | Train Loss: 1.247542e-02 | LR: 1.57e-05
+[2025-06-03 15:19:33] [INFO] Epoch:  318 | Time:   8.0s | Val   Loss: 9.320361e-03 |
+[2025-06-03 15:25:07] [INFO] Epoch:  319 | Time: 333.9s | Train Loss: 1.246752e-02 | LR: 1.55e-05
+[2025-06-03 15:25:15] [INFO] Epoch:  319 | Time:   8.0s | Val   Loss: 9.275747e-03 |
+[2025-06-03 15:30:50] [INFO] Epoch:  320 | Time: 334.8s | Train Loss: 1.243954e-02 | LR: 1.52e-05
+[2025-06-03 15:30:58] [INFO] Epoch:  320 | Time:   8.2s | Val   Loss: 9.190401e-03 |
+[2025-06-03 15:36:37] [INFO] Epoch:  321 | Time: 338.9s | Train Loss: 1.246063e-02 | LR: 1.50e-05
+[2025-06-03 15:36:46] [INFO] Epoch:  321 | Time:   8.7s | Val   Loss: 9.250963e-03 |
+[2025-06-03 15:42:21] [INFO] Epoch:  322 | Time: 334.7s | Train Loss: 1.242872e-02 | LR: 1.49e-05
+[2025-06-03 15:42:29] [INFO] Epoch:  322 | Time:   8.1s | Val   Loss: 9.311846e-03 |
+[2025-06-03 15:48:03] [INFO] Epoch:  323 | Time: 334.1s | Train Loss: 1.245729e-02 | LR: 1.47e-05
+[2025-06-03 15:48:11] [INFO] Epoch:  323 | Time:   8.0s | Val   Loss: 9.183514e-03 |
+[2025-06-03 15:53:45] [INFO] Epoch:  324 | Time: 333.9s | Train Loss: 1.241346e-02 | LR: 1.45e-05
+[2025-06-03 15:53:53] [INFO] Epoch:  324 | Time:   8.1s | Val   Loss: 9.233686e-03 |
+[2025-06-03 15:59:26] [INFO] Epoch:  325 | Time: 332.5s | Train Loss: 1.242836e-02 | LR: 1.43e-05
+[2025-06-03 15:59:34] [INFO] Epoch:  325 | Time:   8.1s | Val   Loss: 9.298888e-03 |
+[2025-06-03 16:05:07] [INFO] Epoch:  326 | Time: 333.5s | Train Loss: 1.240016e-02 | LR: 1.41e-05
+[2025-06-03 16:05:15] [INFO] Epoch:  326 | Time:   8.0s | Val   Loss: 9.286895e-03 |
+[2025-06-03 16:10:49] [INFO] Epoch:  327 | Time: 333.9s | Train Loss: 1.244339e-02 | LR: 1.39e-05
+[2025-06-03 16:10:57] [INFO] Epoch:  327 | Time:   8.0s | Val   Loss: 9.510772e-03 |
+[2025-06-03 16:16:31] [INFO] Epoch:  328 | Time: 333.7s | Train Loss: 1.237804e-02 | LR: 1.38e-05
+[2025-06-03 16:16:39] [INFO] Epoch:  328 | Time:   8.1s | Val   Loss: 9.374251e-03 |
+[2025-06-03 16:22:13] [INFO] Epoch:  329 | Time: 333.4s | Train Loss: 1.236372e-02 | LR: 1.36e-05
+[2025-06-03 16:22:21] [INFO] Epoch:  329 | Time:   7.9s | Val   Loss: 9.172896e-03 |
+[2025-06-03 16:27:54] [INFO] Epoch:  330 | Time: 333.2s | Train Loss: 1.236362e-02 | LR: 1.34e-05
+[2025-06-03 16:28:02] [INFO] Epoch:  330 | Time:   8.2s | Val   Loss: 9.265892e-03 |
+[2025-06-03 16:33:36] [INFO] Epoch:  331 | Time: 334.1s | Train Loss: 1.235811e-02 | LR: 1.33e-05
+[2025-06-03 16:33:44] [INFO] Epoch:  331 | Time:   7.9s | Val   Loss: 9.341490e-03 |
+[2025-06-03 16:39:19] [INFO] Epoch:  332 | Time: 334.4s | Train Loss: 1.235870e-02 | LR: 1.31e-05
+[2025-06-03 16:39:27] [INFO] Epoch:  332 | Time:   7.9s | Val   Loss: 9.429444e-03 |
+[2025-06-03 16:45:07] [INFO] Epoch:  333 | Time: 340.5s | Train Loss: 1.237613e-02 | LR: 1.29e-05
+[2025-06-03 16:45:15] [INFO] Epoch:  333 | Time:   8.0s | Val   Loss: 9.261603e-03 |
+[2025-06-03 16:50:50] [INFO] Epoch:  334 | Time: 334.5s | Train Loss: 1.236965e-02 | LR: 1.28e-05
+[2025-06-03 16:50:58] [INFO] Epoch:  334 | Time:   7.9s | Val   Loss: 9.354765e-03 |
+[2025-06-03 16:56:32] [INFO] Epoch:  335 | Time: 333.9s | Train Loss: 1.236227e-02 | LR: 1.26e-05
+[2025-06-03 16:56:40] [INFO] Epoch:  335 | Time:   8.1s | Val   Loss: 9.381417e-03 |
+[2025-06-03 17:02:15] [INFO] Epoch:  336 | Time: 334.6s | Train Loss: 1.228892e-02 | LR: 1.25e-05
+[2025-06-03 17:02:23] [INFO] Epoch:  336 | Time:   8.1s | Val   Loss: 9.253641e-03 |
+[2025-06-03 17:07:57] [INFO] Epoch:  337 | Time: 333.8s | Train Loss: 1.230765e-02 | LR: 1.24e-05
+[2025-06-03 17:08:05] [INFO] Epoch:  337 | Time:   8.1s | Val   Loss: 9.125913e-03 |
+[2025-06-03 17:13:38] [INFO] Epoch:  338 | Time: 332.8s | Train Loss: 1.231012e-02 | LR: 1.22e-05
+[2025-06-03 17:13:46] [INFO] Epoch:  338 | Time:   8.0s | Val   Loss: 9.366445e-03 |
+[2025-06-03 17:19:20] [INFO] Epoch:  339 | Time: 334.0s | Train Loss: 1.230363e-02 | LR: 1.21e-05
+[2025-06-03 17:19:28] [INFO] Epoch:  339 | Time:   7.9s | Val   Loss: 9.117304e-03 |
+[2025-06-03 17:25:01] [INFO] Epoch:  340 | Time: 333.6s | Train Loss: 1.233035e-02 | LR: 1.20e-05
+[2025-06-03 17:25:10] [INFO] Epoch:  340 | Time:   7.9s | Val   Loss: 9.301150e-03 |
+[2025-06-03 17:30:44] [INFO] Epoch:  341 | Time: 334.2s | Train Loss: 1.229502e-02 | LR: 1.19e-05
+[2025-06-03 17:30:52] [INFO] Epoch:  341 | Time:   8.0s | Val   Loss: 9.504095e-03 |
+[2025-06-03 17:36:26] [INFO] Epoch:  342 | Time: 333.8s | Train Loss: 1.225763e-02 | LR: 1.17e-05
+[2025-06-03 17:36:34] [INFO] Epoch:  342 | Time:   8.1s | Val   Loss: 9.353460e-03 |
+[2025-06-03 17:36:34] [INFO] [stop]   Early stopping triggered at epoch 342
+[2025-06-03 17:36:34] [INFO] Training completed in 32.61 hours.
+[2025-06-03 17:36:37] [INFO] [latest] Checkpoint saved at last

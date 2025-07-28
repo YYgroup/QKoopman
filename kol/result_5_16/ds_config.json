@@ -1,0 +1,88 @@
+{
+    "epochs": 169,
+    "save_interval": 1000,
+    "val_start_epoch": 20,
+    "es_patience": 50,
+    "es_min_delta": 1e-8,
+    "train_data_path": "./data/re4000/eval_128x128_128x128.h5 ./data/re4000/eval_256x256_128x128.h5 ./data/re4000/eval_4096x4096_128x128.h5 ./data/re4000/eval_2048x2048_128x128.h5",
+    "val_data_path": "./data/re4000/eval_512x512_128x128.h5",
+    "test_data_path": "./data/re4000/eval_1024x1024_128x128.h5",
+    "save_path": "./",
+    "profiler_ep_start":0,
+    "profiler_ep_end":3,
+    "n_filters":16,
+
+
+    "train_micro_batch_size_per_gpu": 240,
+    "gradient_accumulation_steps": 2,    
+
+
+    "gradient_checkpointing": {
+        "enable": true,
+        "partitioned_modules": ["DCTBlock", "FEBlock"],
+        "contiguous_memory_optimization": true,
+        "cpu_checkpointing": false
+      },
+
+    "zero_optimization": {
+        "stage": 1
+    },
+
+    "fp16": {
+        "enabled": true,
+        "loss_scale": 0,
+        "loss_scale_window": 1000,
+        "hysteresis": 2,
+        "min_loss_scale": 1
+    },
+
+
+    "optimizer": {
+        "type": "AdamW",
+        "params": {
+            "lr": 8e-4,   
+            "weight_decay": 2e-4,
+            "torch_adam": true
+        }
+    },
+
+    "scheduler": {
+        "type": "WarmupCosineLR",
+        "params": {
+            "total_num_steps": 10000,
+            "warmup_min_ratio": 0,
+            "cos_min_ratio": 0.1,
+            "warmup_num_steps": 1000,
+            "warmup_type": "log"
+        }
+    },
+
+
+    "checkpoint": {
+        "use_node_local_storage": true,
+        "parallel_write": {
+            "enabled": true,
+            "max_concurrent_writes": 8
+        }
+    },
+
+    "distributed": {
+        "backend": "nccl",
+        "broadcast_buffers": false
+    },
+
+    "comms_config": {
+        "comms_logger": {
+            "enabled": true,
+            "verbose": false,
+            "prof_all": false,
+            "debug": false
+        },
+        "nccl": {
+            "p2p_net_chunksize": "auto",
+            "max_async_errors": "auto"
+        },
+        "hybrid_engine": {"enabled": false}
+    }
+
+}

@@ -1,0 +1,88 @@
+{
+    "epochs": 369,
+    "save_interval": 1000,
+    "val_start_epoch": 50,
+    "es_patience": 50,
+    "es_min_delta": 1e-8,
+    "train_data_path": "./train/gray_scott_reaction_diffusion_maze_F_0.029_k_0.057.hdf5",
+    "val_data_path": "./valid/gray_scott_reaction_diffusion_maze_F_0.029_k_0.057.hdf5",
+    "test_data_path": "./test/gray_scott_reaction_diffusion_maze_F_0.029_k_0.057.hdf5",
+    "save_path": "./",
+    "profiler_ep_start":0,
+    "profiler_ep_end":3,
+    "n_filters":16,
+
+
+    "train_micro_batch_size_per_gpu": 240,
+    "gradient_accumulation_steps": 2,    
+
+
+    "gradient_checkpointing": {
+        "enable": true,
+        "partitioned_modules": ["DCTBlock", "FEBlock"],
+        "contiguous_memory_optimization": true,
+        "cpu_checkpointing": false
+      },
+
+    "zero_optimization": {
+        "stage": 1
+    },
+
+    "fp16": {
+        "enabled": true,
+        "loss_scale": 0,
+        "loss_scale_window": 1000,
+        "hysteresis": 2,
+        "min_loss_scale": 1
+    },
+
+
+    "optimizer": {
+        "type": "AdamW",
+        "params": {
+            "lr": 2e-4,   
+            "weight_decay": 1e-4,
+            "torch_adam": true
+        }
+    },
+
+    "scheduler": {
+        "type": "WarmupCosineLR",
+        "params": {
+            "total_num_steps": 22000,
+            "warmup_min_ratio": 0,
+            "cos_min_ratio": 0.1,
+            "warmup_num_steps": 2000,
+            "warmup_type": "log"
+        }
+    },
+
+
+    "checkpoint": {
+        "use_node_local_storage": true,
+        "parallel_write": {
+            "enabled": true,
+            "max_concurrent_writes": 8
+        }
+    },
+
+    "distributed": {
+        "backend": "nccl",
+        "broadcast_buffers": false
+    },
+
+    "comms_config": {
+        "comms_logger": {
+            "enabled": true,
+            "verbose": false,
+            "prof_all": false,
+            "debug": false
+        },
+        "nccl": {
+            "p2p_net_chunksize": "auto",
+            "max_async_errors": "auto"
+        },
+        "hybrid_engine": {"enabled": false}
+    }
+
+}
