@@ -13,9 +13,9 @@ export NCCL_NET_SHARED_COMMS=1
 export CUDA_DEVICE_MAX_CONNECTIONS=12
 export NCCL_NVLS_ENABLE=1
 
-source /XYFS01/HDD_POOL/pku_yyg/pku_yyg/zhangby/gpu/miniconda3/bin/activate
+source ./miniconda3/bin/activate
 source activate zby
-cd /XYFS01/HDD_POOL/pku_yyg/pku_yyg/zhangby/gpu/shear
+cd ./shear
 export PYTHONUNBUFFERED=1
 
 NUM_GPUS=$(nvidia-smi -L 2>/dev/null | wc -l)
