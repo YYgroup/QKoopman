@@ -58,24 +58,10 @@ def draw_contour(v1,v3,case,ind,error_type='Relative MSE',result='result_5_16'):
         vmin = -10.
         vmax = 10.
         tau = np.abs(v1[0]).max()
-
-
-
-
-
-
     elif case == 2:
         vmin = 0.1
         vmax = 1.
         tau = 1/0.029
-
-
-
-
-
-
-
-
 
     t_list = [0,10,20,30,40,50,60]
 
@@ -212,11 +198,7 @@ def draw_contour(v1,v3,case,ind,error_type='Relative MSE',result='result_5_16'):
     mse = ( (v3-v1)**2 ).mean(axis=(-2,-1))
 
     error_dict={
-
-
-
         'Relative MSE': mse / (v1**2).mean(axis=(-2,-1)),
-
     }
     error = error_dict[error_type]
 
@@ -227,9 +209,6 @@ def draw_contour(v1,v3,case,ind,error_type='Relative MSE',result='result_5_16'):
         data = rmse[:,i]
         rmse_low[i] = np.percentile(data, 10)  # 10%
         rmse_high[i] = np.percentile(data, 90)  # 90%
-
-
-
 
     ax.fill_between(np.arange(rmse.shape[1]),rmse_low,rmse_high,
                     alpha=0.25,edgecolor='none',color='#A8B5C2')
@@ -250,9 +229,6 @@ def draw_contour(v1,v3,case,ind,error_type='Relative MSE',result='result_5_16'):
         ax.set_yticks([0,0.6,1.2])
         ax.set_yticklabels([0,60,120],fontsize=config.ftsize)
     elif case==2:
-
-
-
         ax.set_ylim(0, 0.07)
         ax.set_yticks([0,0.03,0.06])
         ax.set_yticklabels([0,3,6],fontsize=config.ftsize)
@@ -321,12 +297,8 @@ def draw_contour(v1,v3,case,ind,error_type='Relative MSE',result='result_5_16'):
                     top=False, right=False, length=2., width=0.7,pad=3)
             axes[i][j].tick_params(which='minor',top=False, right=False, length=1.,width=0.7,)
 
-
-
-
     fig.savefig(fr'case={case:d}_ind={ind:d}_contour.pdf', transparent=True, orientation='portrait',
                 bbox_inches='tight')
-
 
 
 def draw_statistic_case1(dictS1p,dictS3p,p1_list,p2_list,
@@ -1826,9 +1798,6 @@ def draw_3dfall_rmse(log_dict_case1,log_dict_case2,log_dict_case0):
     fig.text(pos1.x0-0.058,pos3.y0+pos1.height*1.1, r'(e)', ha='center', va='center', family='Times New Roman',fontsize=config.ftsize)
     fig.text(pos4.x0-0.058,pos5.y0+pos1.height*1.1, r'(f)', ha='center', va='center', family='Times New Roman',fontsize=config.ftsize)
 
-
-
-
     fig.savefig(fr'3drmse.pdf', transparent=True, orientation='portrait',
                 bbox_inches='tight')
 
@@ -1924,340 +1893,3 @@ def draw_dataset_qkm(v1,v3,case,ind,idx):
         fig.savefig(folder_path+'/'+f'qkm_idx_{ind:d}_{idx[i]:d}',
                     transparent=True, orientation='portrait',
                     bbox_inches='tight',pad_inches=0.1,dpi=600)
-
-
-
-def draw_contour_ppt(v1,v3,case,ind,error_type='Relative MSE',result='result_5_16'):
-    '''
-    Args:
-        v1 (np.array): (t, h, h) GT
-        v3 (np.array): (t, h, h) QKM
-    '''
-    config = PlotConfig2(nrow=3,ncol=5,
-                        plot_width= 16.5,       #  (cm)
-                        margin_left= 1.9,       #  (cm)
-                        margin_right= 1.1,      #  (cm)
-                        margin_bottom= 1.2,     #  (cm)
-                        margin_top= 1.0,        #  (cm)
-                        space_width= 0.3,       #  (cm)
-                        space_height= [0.5,1.0],      #  (cm)
-                        subplot_ratio= [0.9,0.9,0.121],     #  (height/width)
-                        ftsize=12,             # 
-                    )
-    config.set_row_config(row=2,ncols=1)
-    fig,axes = config.get_multi()
-
-
-    extent = [0, 128, 0, 128]  #  xmin, xmax, ymin, ymax
-    ticks = [0,64,128]
-    if case == 0:
-        labels_x = ['0', '0.5', '1']
-        labels_y = ['0', '0.25', '0.5']
-    elif case == 1:
-        labels_x = ['0', '$2\pi$', '$4\pi$']
-        labels_y = ['0', '$2\pi$', '$4\pi$']
-    elif case == 2:
-        labels_x = ['-1', '0', '1']
-        labels_y = ['-1', '0', '1']
-    else:
-        print("case error: please set case = 0,1,2")
-
-    print(f'v1.min()={v1.min()},v1.max()={v1.max()}')
-    if case == 0:
-        vmin = -12.
-        vmax = 12.
-        tau = np.abs(v1[0]).max()
-    elif case == 1:
-        vmin = -10.
-        vmax = 10.
-        tau = np.abs(v1[0]).max()
-    elif case == 2:
-        vmin = 0.1
-        vmax = 1.
-        tau = 1/0.029
-
-
-    t_list = [0,15,30,45,60]
-
-    for k in range(5) : # 5
-
-        im = axes[0][k].imshow(
-            getv(t_list[k], v1),
-            cmap='RdBu_r',
-            animated=False,
-            vmin=vmin,
-            vmax=vmax,
-            extent=extent  # 
-        )
-
-        axes[0][k].set_xticks(ticks)  #  x  ticklabel
-        axes[0][k].set_yticks(ticks)  #  y  ticklabel
-        axes[0][k].set_xticklabels(['','',''])
-        axes[0][k].set_yticklabels(['','',''])
-
-
-        axes[1][k].imshow(
-            getv(t_list[k], v3),
-            cmap='RdBu_r',
-            animated=False,
-            vmin=vmin,
-            vmax=vmax,
-            extent=extent  # 
-        )
-        axes[1][k].set_xticks(ticks)  #  x  ticklabel
-        axes[1][k].set_yticks(ticks)  #  y  ticklabel
-        axes[1][k].set_xticklabels(['','',''])
-        axes[1][k].set_yticklabels(['','',''])
-
-        if case==2:
-            axes[0][k].set_title(fr"$t={t_list[k]*10/tau:.2f}\tau$",fontsize=config.ftsize,pad=2.0)
-        elif case==1:
-            axes[0][k].set_title(fr"$t={t_list[k]*0.1/tau:.2f}\tau$",fontsize=config.ftsize,pad=2.0)
-        elif case==0:
-            axes[0][k].set_title(fr"$t={t_list[k]*0.1/tau:.2f}\tau$",fontsize=config.ftsize,pad=2.0)
-
-    axes[0][0].set_yticklabels(labels_y,fontsize=config.ftsize)
-    axes[1][0].set_yticklabels(labels_y,fontsize=config.ftsize)
-
-    if case==0:
-        axes[0][0].set_ylabel('$y$',labelpad=3.5,fontsize=config.ftsize)
-        axes[1][0].set_ylabel('$y$',labelpad=3.5,fontsize=config.ftsize)
-    elif case==1:
-        axes[0][0].set_ylabel('$y$',labelpad=3.5,fontsize=config.ftsize)
-        axes[1][0].set_ylabel('$y$',labelpad=3.5,fontsize=config.ftsize)
-    elif case==2:
-        axes[0][0].set_ylabel('$y$',labelpad=1.5,fontsize=config.ftsize)
-        axes[1][0].set_ylabel('$y$',labelpad=1.5,fontsize=config.ftsize)
-
-    for j in range(5):
-        axes[1][j].set_xticklabels(labels_x,fontsize=config.ftsize)
-        axes[1][j].set_xlabel('$x$',labelpad=0,fontsize=config.ftsize)
-
-
-    subwidth = axes[0][-1].get_position().x0 - axes[0][-2].get_position().x0 - axes[0][-2].get_position().width
-    pos_up = axes[0][-1].get_position()
-    pos_down = axes[1][-1].get_position()
-    ax_bar = fig.add_axes([pos_down.x0+pos_up.width+subwidth*0.6,
-                  pos_down.y0+pos_up.height/4,
-                  subwidth*0.4,
-                  pos_up.y0-pos_down.y0+pos_up.height/2,])
-    cbar = fig.colorbar(im,cax=ax_bar,orientation='vertical')
-    cbar.ax.tick_params(
-        direction='in',  # 
-        length=2.,         # （ 4，）
-        width=0.7,          # 
-        colors='black',   # 
-        pad=1.5,          # 
-        top=True,
-        bottom=False
-    )
-
-    if case == 0:
-        bar_label='$\omega$'
-        bar_ticks=[-10,-5,0,5,10]
-        bar_tls=[f'{x:d}' for x in bar_ticks]
-    elif case == 1:
-        bar_label='$\omega$'
-        bar_ticks=[-8,-4,0,4,8]
-        bar_tls=[f'{x:d}' for x in bar_ticks]
-    elif case == 2:
-        bar_label='$Y_A$'
-        bar_ticks=[0.1,0.3,0.5,0.7,0.9]
-        bar_tls=[f'{x:.1f}' for x in bar_ticks]
-
-    cbar.set_ticks(bar_ticks)
-    cbar.set_ticklabels(bar_tls,fontsize=config.ftsize-1)
-
-
-    cbar.set_label('') #  label（）
-
-    cbar.ax.text(
-        0.5,                    # x （0=，1=，0.5=）
-        1.02,                   # y 
-        bar_label,              # 
-        ha='center',            # 
-        va='bottom',            # （）
-        fontsize=config.ftsize,      # 
-        transform=cbar.ax.transAxes  # （0-1）
-    )
-
-
-    ax = axes[2][0]
-    pos = ax.get_position()
-    pos_right = axes[1][-1].get_position()
-    ax.remove()
-    ax = fig.add_axes([axes[1][0].get_position().x0,
-                  pos.y0,
-                  pos_right.x0+pos_right.width-axes[1][0].get_position().x0,
-                  pos.height,])
-
-
-    mse = ( (v3-v1)**2 ).mean(axis=(-2,-1))
-
-    error_dict={
-
-
-
-        'Relative MSE': mse / (v1**2).mean(axis=(-2,-1)),
-
-    }
-    error = error_dict[error_type]
-
-    rmse = np.load(f'RMSE_case={case:d}_{result:s}.npy')
-    rmse_low=np.zeros(rmse.shape[1])
-    rmse_high=np.zeros(rmse.shape[1])
-    for i in range(rmse.shape[1]):
-        data = rmse[:,i]
-        rmse_low[i] = np.percentile(data, 10)  # 10%
-        rmse_high[i] = np.percentile(data, 90)  # 90%
-
-
-
-
-    ax.fill_between(np.arange(rmse.shape[1]),rmse_low,rmse_high,
-                    alpha=0.25,edgecolor='none',color='#A8B5C2')
-    ax.plot(error,linestyle='-',color='#A6cced',linewidth=1.5)
-
-    if case==0:
-        ax.set_ylim(0, 0.05)
-        ax.set_yticks([0,0.02,0.04])
-        ax.set_yticklabels([0,2,4],fontsize=config.ftsize)
-    elif case==1:
-        ax.set_ylim(0, 1.4)
-        ax.set_yticks([0,0.6,1.2])
-        ax.set_yticklabels([0,60,120],fontsize=config.ftsize)
-    elif case==2:
-        ax.set_ylim(0, 0.07)
-        ax.set_yticks([0,0.03,0.06])
-        ax.set_yticklabels([0,3,6],fontsize=config.ftsize)
-
-    ax.grid(True,color='#EBEBEB',linewidth=0.5,alpha=0.5,linestyle='-',zorder=0)
-    ax.set_axisbelow(True)  # 
-    ax.set_xlim([-1,61])
-    xticks=[0,10,20,30,40,50,60]
-    ax.set_xticks(xticks)
-    if case==2:
-        ax.set_xticklabels([fr'{i*10/tau:.1f}$\tau$' for i in xticks])
-    else:
-        ax.set_xticklabels([fr'{i*0.1/tau:.1f}$\tau$' for i in xticks])
-
-    ax.tick_params(axis='y', which='major',labelsize=config.ftsize-1,
-            top=False, right=False, length=3, pad=3.)
-    ax.tick_params(axis='x', which='major',labelsize=config.ftsize-1,
-            top=False, right=False, length=3, pad=4.5)
-    ax.tick_params(which='minor',top=False, right=False, length=1.5)
-    ax.set_xlabel('$t$',labelpad=0,fontsize=config.ftsize)
-
-    pos0 = axes[0][0].get_position()
-    pos1 = axes[1][0].get_position()
-    pos3 = ax.get_position()
-
-    if case==0:
-        fig.text(pos0.x0-0.0925,pos0.y0+pos0.height/2, 'GT', ha='center', va='center', rotation=90, fontsize=config.ftsize)
-        fig.text(pos0.x0-0.0925,pos1.y0+pos1.height/2, 'QKM', ha='center', va='center', rotation=90,  fontsize=config.ftsize)
-        fig.text(pos0.x0-0.0925,pos3.y0+pos3.height/2, 'RMSE (\%)', ha='center', va='center', rotation=90,  fontsize=config.ftsize)
-
-    else:
-        fig.text(pos0.x0-0.07,pos0.y0+pos0.height/2, 'GT', ha='center', va='center', rotation=90, fontsize=config.ftsize)
-        fig.text(pos0.x0-0.07,pos1.y0+pos1.height/2, 'QKM', ha='center', va='center', rotation=90,  fontsize=config.ftsize)
-        fig.text(pos0.x0-0.07,pos3.y0+pos3.height/2, 'RMSE (\%)', ha='center', va='center', rotation=90,  fontsize=config.ftsize)
-
-
-    for i in range(2):
-        for j in range(5):
-            axes[i][j].tick_params(axis='y', which='major',labelsize=config.ftsize-1,
-                    top=False, right=False, length=2., width=0.7,pad=1.5)
-            axes[i][j].tick_params(axis='x', which='major',labelsize=config.ftsize-1,
-                    top=False, right=False, length=2., width=0.7,pad=3.5)
-            axes[i][j].tick_params(which='minor',top=False, right=False, length=1.,width=0.7,)
-
-    fig.savefig(fr'case={case:d}_ind={ind:d}_ppt_contour.png', transparent=True, orientation='portrait',
-                bbox_inches='tight',dpi=600) # bbox_inches='tight',
-
-
-
-def draw_video_ppt(v1,v3,case,ind):
-    '''
-    Args:
-        v1 (np.array): (t, h, h) GT
-        v3 (np.array): (t, h, h) QKM
-    '''
-    config = PlotConfig3(nrow=1,ncol=2,
-                        plot_width= 16.5,       #  (cm)
-                        margin_left= 1.9,       #  (cm)
-                        margin_right= 1.1,      #  (cm)
-                        margin_bottom= 1.2,     #  (cm)
-                        margin_top= 1.5,        #  (cm)
-                        space_width= 1.5,       #  (cm)
-                        space_height= 0.5,      #  (cm)
-                        subplot_ratio= 0.9,     #  (height/width)
-                        ftsize=12,             # 
-                    )
-    fig,[(ax1,ax2)] = config.get_multi()
-
-
-    extent = [0, 128, 0, 128]  #  xmin, xmax, ymin, ymax
-    ticks = [0,64,128]
-    if case == 0:
-        labels_x = ['0', '0.5', '1']
-        labels_y = ['0', '0.25', '0.5']
-    elif case == 1:
-        labels_x = ['0', '$2\pi$', '$4\pi$']
-        labels_y = ['0', '$2\pi$', '$4\pi$']
-    elif case == 2:
-        labels_x = ['-1', '0', '1']
-        labels_y = ['-1', '0', '1']
-    else:
-        print("case error: please set case = 0,1,2")
-
-    for ax in [ax1,ax2]:
-        ax.tick_params(axis='y', which='major',labelsize=config.ftsize-1,
-                top=False, right=False, length=3, pad=3.)
-        ax.tick_params(axis='x', which='major',labelsize=config.ftsize-1,
-                top=False, right=False, length=3, pad=4.5)
-        ax.tick_params(which='minor',top=False, right=False, length=1.5)
-        ax.set_xticks(ticks)  #  x  ticklabel
-        ax.set_yticks(ticks)  #  y  ticklabel
-        ax.set_xticklabels(labels_x,fontsize=config.ftsize)
-        ax.set_yticklabels(labels_y,fontsize=config.ftsize)
-        ax.set_xlabel('$x$',labelpad=0,fontsize=config.ftsize)
-        if case==0:
-            ax.set_ylabel('$y$',labelpad=3.5,fontsize=config.ftsize)
-            ax.set_ylabel('$y$',labelpad=3.5,fontsize=config.ftsize)
-        elif case==1:
-            ax.set_ylabel('$y$',labelpad=3.5,fontsize=config.ftsize)
-            ax.set_ylabel('$y$',labelpad=3.5,fontsize=config.ftsize)
-        elif case==2:
-            ax.set_ylabel('$y$',labelpad=1.5,fontsize=config.ftsize)
-            ax.set_ylabel('$y$',labelpad=1.5,fontsize=config.ftsize)
-
-    images = list(np.arange(v1.shape[0]))
-    getv = lambda key, v: v[key, :, :]
-
-    im1 = ax1.imshow(getv(images[0], v1), cmap='RdBu_r', animated=True, extent=extent,
-                     vmin=np.min([getv(img, v1) for img in images]),
-                     vmax=np.max([getv(img, v1) for img in images]))
-    frame_text1 = ax1.text(0.0, 1.15, f"frame: 1/{len(images)}", transform=ax1.transAxes, ha='center')
-    ax1.set_title("GT")
-
-    im2 = ax2.imshow(getv(images[0], v3), cmap='RdBu_r', animated=True, extent=extent,
-                     vmin=np.min([getv(img, v1) for img in images]),
-                     vmax=np.max([getv(img, v1) for img in images]))
-    ax2.set_title("QKM")  #  ax2 
-
-    def update(frame):
-
-        im1.set_array(getv(images[frame], v1))
-        frame_text1.set_text(f"frame: {frame+1}/{len(images)}")
-
-        im2.set_array(getv(images[frame], v3))
-        return [im1, frame_text1, im2]  # 
-
-
-    ani = FuncAnimation(fig, update, frames=len(images), blit=False)  #  blit=False
-    ani.save(
-        fr'case={case:d}_ind={ind:d}_ppt_video.mp4',
-        writer='ffmpeg',
-        fps=25,bitrate=5000,
-        extra_args=['-preset', 'slow', '-crf', '18'],  # FFmpeg
-    )
