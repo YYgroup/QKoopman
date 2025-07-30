@@ -68,9 +68,9 @@ To evaluate the models and reproduce results from our paper:
 If you use our code, please cite:
 
 ```bibtex
-@misc{zhang2025datadrivenquantumkoopmanmethod,
+@misc{Zhang2025quantumKoopman,
       title={Data-driven quantum {Koopman} method for simulating nonlinear dynamics}, 
-      author={Baoyang Zhang and Zhen Lu and Yaomin Zhao and Yue Yang},
+      author={Zhang, Baoyang and Lu, Zhen and Zhao, Yaomin and Yang, Yue},
       year={2025},
       eprint={2507.21890},
       archivePrefix={arXiv},
